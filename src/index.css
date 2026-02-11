@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,37 +6,38 @@
 
 @layer base {
   :root {
-    --background: 160 30% 96%;
-    --foreground: 160 40% 8%;
+    --background: 30 15% 8%;
+    --foreground: 35 30% 90%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 160 40% 8%;
+    --card: 30 12% 12%;
+    --card-foreground: 35 30% 90%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 160 40% 8%;
+    --popover: 30 12% 12%;
+    --popover-foreground: 35 30% 90%;
 
-    --primary: 153 60% 38%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 35 40% 85%;
+    --primary-foreground: 30 15% 8%;
 
-    --secondary: 330 70% 75%;
-    --secondary-foreground: 330 60% 15%;
+    --secondary: 25 30% 20%;
+    --secondary-foreground: 35 30% 90%;
 
-    --muted: 160 15% 90%;
-    --muted-foreground: 160 10% 40%;
+    --muted: 30 10% 15%;
+    --muted-foreground: 30 15% 55%;
 
-    --accent: 45 90% 60%;
-    --accent-foreground: 45 80% 12%;
+    --accent: 35 50% 70%;
+    --accent-foreground: 30 15% 8%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 160 20% 85%;
-    --input: 160 20% 85%;
-    --ring: 153 60% 38%;
+    --border: 30 10% 20%;
+    --input: 30 10% 20%;
+    --ring: 35 40% 85%;
 
-    --radius: 0.75rem;
+    --radius: 0rem;
 
-    --font-heading: 'Caveat', cursive;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Playfair Display', serif;
     --font-body: 'Space Grotesk', sans-serif;
 
     --sidebar-background: 0 0% 98%;
@@ -48,45 +49,6 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-
-  .dark {
-    --background: 160 30% 6%;
-    --foreground: 160 10% 95%;
-
-    --card: 160 25% 10%;
-    --card-foreground: 160 10% 95%;
-
-    --popover: 160 25% 10%;
-    --popover-foreground: 160 10% 95%;
-
-    --primary: 153 60% 45%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 330 50% 40%;
-    --secondary-foreground: 330 20% 95%;
-
-    --muted: 160 15% 15%;
-    --muted-foreground: 160 10% 60%;
-
-    --accent: 45 80% 50%;
-    --accent-foreground: 45 80% 95%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 160 15% 20%;
-    --input: 160 15% 20%;
-    --ring: 153 60% 45%;
-
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
 }
 
 @layer base {
@@ -95,53 +57,50 @@
   }
 
   body {
-    @apply bg-background text-foreground font-body;
+    @apply bg-background text-foreground;
     font-family: var(--font-body);
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
   }
 
   html {
     scroll-behavior: smooth;
   }
+
+  ::selection {
+    background: hsl(35 40% 85% / 0.3);
+    color: hsl(35 30% 90%);
+  }
 }
 
 @layer components {
   .section-heading {
-    @apply text-6xl md:text-8xl lg:text-9xl font-bold text-primary;
-    font-family: var(--font-heading);
+    font-family: var(--font-display);
+    @apply text-foreground uppercase tracking-tight;
   }
 
-  .card-vibrant {
-    @apply bg-primary text-primary-foreground rounded-2xl p-6 md:p-8 transition-transform duration-300;
+  .font-display {
+    font-family: var(--font-display);
   }
 
-  .card-vibrant:hover {
-    transform: scale(1.02);
+  .font-serif {
+    font-family: var(--font-serif);
   }
 
-  .card-pink {
-    @apply bg-secondary text-secondary-foreground rounded-2xl p-6 md:p-8 transition-transform duration-300;
-  }
-
-  .card-pink:hover {
-    transform: scale(1.02);
-  }
-
-  .nav-pill {
-    @apply px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer;
-    @apply bg-card text-foreground hover:bg-primary hover:text-primary-foreground;
+  .font-body {
     font-family: var(--font-body);
-  }
-
-  .nav-pill-active {
-    @apply bg-primary text-primary-foreground;
   }
 
   .text-gradient {
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  }
+
+  .marquee-track {
+    display: flex;
+    animation: marquee 20s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 }
