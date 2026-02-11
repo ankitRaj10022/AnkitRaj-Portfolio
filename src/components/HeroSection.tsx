@@ -1,11 +1,23 @@
-import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const blobY = useTransform(scrollYProgress, [0, 1], ["0%", "60%"]);
 
   useEffect(() => {
     if (titleRef.current) {
@@ -27,10 +39,11 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
+      ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden px-4"
     >
-      {/* Background image */}
-      <div className="absolute inset-0 z-0">
+      {/* Parallax background */}
+      <motion.div className="absolute inset-0 z-0" style={{ y: bgY, scale: bgScale }}>
         <img
           src={heroBg}
           alt="Abstract geometric art background"
@@ -38,14 +51,16 @@ const HeroSection = () => {
           loading="lazy"
         />
         <div className="absolute inset-0 bg-background/60" />
-      </div>
+      </motion.div>
 
-      {/* Floating blobs */}
-      <div className="absolute top-20 left-10 w-48 h-48 md:w-72 md:h-72 bg-primary/20 rounded-full blur-3xl animate-blob" />
-      <div className="absolute bottom-20 right-10 w-56 h-56 md:w-80 md:h-80 bg-secondary/30 rounded-full blur-3xl animate-blob" style={{ animationDelay: "2s" }} />
-      <div className="absolute top-1/2 left-1/2 w-40 h-40 md:w-64 md:h-64 bg-accent/20 rounded-full blur-3xl animate-blob" style={{ animationDelay: "4s" }} />
+      {/* Parallax floating blobs */}
+      <motion.div style={{ y: blobY }} className="absolute inset-0 z-[1] pointer-events-none">
+        <div className="absolute top-20 left-10 w-48 h-48 md:w-72 md:h-72 bg-primary/20 rounded-full blur-3xl animate-blob" />
+        <div className="absolute bottom-20 right-10 w-56 h-56 md:w-80 md:h-80 bg-secondary/30 rounded-full blur-3xl animate-blob" style={{ animationDelay: "2s" }} />
+        <div className="absolute top-1/2 left-1/2 w-40 h-40 md:w-64 md:h-64 bg-accent/20 rounded-full blur-3xl animate-blob" style={{ animationDelay: "4s" }} />
+      </motion.div>
 
-      <div className="relative z-10 text-center max-w-5xl mx-auto">
+      <motion.div className="relative z-10 text-center max-w-5xl mx-auto" style={{ y: contentY, opacity: contentOpacity }}>
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -106,7 +121,7 @@ const HeroSection = () => {
             <div className="w-1.5 h-3 rounded-full bg-muted-foreground/50" />
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 };
