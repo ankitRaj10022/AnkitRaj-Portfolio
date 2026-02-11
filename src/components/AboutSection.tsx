@@ -2,95 +2,67 @@ import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Code2, Palette, Zap, Globe } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const skills = [
-  { icon: Code2, title: "Development", desc: "React, TypeScript, Node.js, and modern web technologies." },
-  { icon: Palette, title: "Design", desc: "UI/UX design with attention to detail and user experience." },
-  { icon: Zap, title: "Performance", desc: "Optimized, fast-loading apps with smooth animations." },
-  { icon: Globe, title: "Responsive", desc: "Pixel-perfect on every device, from mobile to desktop." },
-];
-
 const AboutSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   useEffect(() => {
-    if (headingRef.current) {
+    if (textRef.current) {
+      const words = textRef.current.querySelectorAll(".word");
       gsap.fromTo(
-        headingRef.current,
-        { x: -200, opacity: 0 },
+        words,
+        { opacity: 0.15 },
         {
-          x: 0,
           opacity: 1,
-          duration: 1,
-          ease: "power3.out",
+          duration: 0.5,
+          stagger: 0.05,
           scrollTrigger: {
-            trigger: headingRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
+            trigger: textRef.current,
+            start: "top 75%",
+            end: "bottom 50%",
+            scrub: true,
           },
         }
       );
     }
   }, []);
 
+  const aboutText =
+    "I use my passion and skills to create digital products and experiences. National and international customers rely on me for design, implementation, and management of their digital products. As an independent, I work with web agencies, companies, startups and individuals to create a blueprint for the digital business.";
+
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="py-24 md:py-32 px-4 relative overflow-hidden"
+      className="py-32 md:py-48 px-6 md:px-10 lg:px-16 relative"
     >
-      <div className="max-w-7xl mx-auto">
-        <h2 ref={headingRef} className="section-heading mb-16" style={{ opacity: 0 }}>
-          About Me
-        </h2>
+      <div className="max-w-6xl mx-auto" ref={ref}>
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="font-display text-4xl md:text-6xl uppercase tracking-tight text-foreground mb-16"
+        >
+          Hello. I am
+          <br />
+          <span className="font-serif italic normal-case text-accent">
+            Your Name Here
+          </span>
+        </motion.h2>
 
-        <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Bio */}
-          <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div className="card-vibrant">
-              <h3 className="font-heading text-4xl md:text-5xl mb-6">
-                Hello there! 👋
-              </h3>
-              <p className="font-body text-base md:text-lg leading-relaxed opacity-90 mb-4">
-                I'm a passionate full-stack developer and designer who loves turning ideas into
-                beautiful, functional digital products. With years of experience in modern web
-                technologies, I bring creativity and technical expertise to every project.
-              </p>
-              <p className="font-body text-base md:text-lg leading-relaxed opacity-90">
-                When I'm not coding, you'll find me exploring new design trends, contributing
-                to open source, or enjoying a good cup of coffee while sketching new ideas.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Skills */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {skills.map((skill, i) => (
-              <motion.div
-                key={skill.title}
-                initial={{ opacity: 0, y: 40 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.3 + i * 0.15 }}
-                className="bg-card rounded-2xl p-6 border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300 group"
-              >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                  <skill.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h4 className="font-heading text-2xl mb-2 text-foreground">{skill.title}</h4>
-                <p className="font-body text-sm text-muted-foreground">{skill.desc}</p>
-              </motion.div>
+        <div ref={textRef} className="max-w-4xl">
+          <p className="font-body text-xl md:text-2xl lg:text-3xl leading-relaxed text-foreground/80">
+            {aboutText.split(" ").map((word, i) => (
+              <span key={i} className="word inline-block mr-[0.3em]">
+                {word}
+              </span>
             ))}
-          </div>
+          </p>
         </div>
       </div>
     </section>
