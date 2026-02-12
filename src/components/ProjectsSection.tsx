@@ -87,7 +87,8 @@ const ProjectsSection = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.15 }}
-              className="group border-b border-border cursor-pointer"
+            className="group border-b border-border cursor-none"
+            data-cursor="View"
             >
               <div className="flex items-center justify-between py-6 md:py-8">
                 <div className="flex-1">

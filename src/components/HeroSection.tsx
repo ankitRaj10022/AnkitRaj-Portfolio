@@ -86,7 +86,7 @@ const HeroSection = () => {
             onClick={() =>
               document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
             }
-            className="font-body text-sm md:text-base uppercase tracking-widest text-foreground border border-foreground/30 px-6 py-3 md:px-8 md:py-4 hover:bg-foreground hover:text-background transition-all duration-500"
+            className="font-body text-sm md:text-base uppercase tracking-widest text-foreground border border-foreground/30 px-6 py-3 md:px-8 md:py-4 hover:bg-foreground hover:text-background transition-all duration-500 cursor-none"
           >
             Contact Me
           </button>
