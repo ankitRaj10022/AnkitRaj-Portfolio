@@ -43,7 +43,7 @@ const Navbar = () => {
               ​Ankit Raj 
             </button>
             <span className="hidden md:inline font-body text-xs uppercase tracking-widest text-muted-foreground">
-              UX/UI Designer, Developer
+              Software Engineer | Full-Stack & Game Development
             </span>
           </div>
 
@@ -66,8 +66,8 @@ const Navbar = () => {
               href="/resume.pdf"
               download
               className="ml-4 inline-flex items-center gap-2 font-body text-xs uppercase tracking-widest text-background bg-foreground px-4 py-2 hover:bg-accent hover:text-background transition-all duration-300 cursor-none"
-              data-cursor="Download"
-            >
+              data-cursor="Download">
+
               <Download size={14} />
               Resume
             </a>
@@ -101,10 +101,10 @@ const Navbar = () => {
                 </button>
             )}
               <a
-                href="/resume.pdf"
-                download
-                className="inline-flex items-center gap-2 font-body text-sm text-foreground hover:text-primary transition-colors"
-              >
+              href="/resume.pdf"
+              download
+              className="inline-flex items-center gap-2 font-body text-sm text-foreground hover:text-primary transition-colors">
+
                 <Download size={16} />
                 Download Resume
               </a>
