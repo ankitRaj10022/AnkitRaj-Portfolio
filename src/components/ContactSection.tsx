@@ -47,7 +47,8 @@ const ContactSection = () => {
 
           <motion.a
             href="mailto:hello@portfolio.dev"
-            className="inline-flex items-center gap-3 font-body text-sm md:text-base uppercase tracking-widest text-foreground border border-foreground/30 px-8 py-4 md:px-12 md:py-5 hover:bg-foreground hover:text-background transition-all duration-500 group"
+            data-cursor="Email"
+            className="inline-flex items-center gap-3 font-body text-sm md:text-base uppercase tracking-widest text-foreground border border-foreground/30 px-8 py-4 md:px-12 md:py-5 hover:bg-foreground hover:text-background transition-all duration-500 group cursor-none"
             whileHover={{ scale: 1.02 }}
           >
             Contact me
