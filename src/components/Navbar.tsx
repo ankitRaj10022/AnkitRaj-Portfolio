@@ -38,7 +38,7 @@ const Navbar = () => {
           <div className="flex items-center gap-4 md:gap-8">
             <button
               onClick={() => handleClick("#hero")}
-              className="font-serif text-md md:text-base text-foreground hover:text-primary transition-colors">
+              className="font-serif text-sm md:text-base text-foreground hover:text-primary transition-colors">
 
               ​Ankit Raj 
             </button>
