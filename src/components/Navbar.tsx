@@ -38,7 +38,7 @@ const Navbar = () => {
           <div className="flex items-center gap-4 md:gap-8">
             <button
               onClick={() => handleClick("#hero")}
-              className="font-serif text-sm md:text-base text-foreground hover:text-primary transition-colors">
+              className="font-serif text-lg md:text-base text-foreground hover:text-primary transition-colors">
 
               ​Ankit Raj 
             </button>
@@ -65,7 +65,7 @@ const Navbar = () => {
             <a
               href="/resume.pdf"
               download
-              className="ml-4 inline-flex items-center gap-2 font-body text-xs uppercase tracking-widest text-background bg-foreground px-4 py-2 hover:bg-accent hover:text-background transition-all duration-300 cursor-none"
+              className="ml-4 inline-flex items-center gap-2 font-body text-xs uppercase tracking-widest text-background bg-foreground px-4 py-2 hover:bg-accent hover:text-background transition-all duration-300 cursor-none border-4 border-double rounded-full"
               data-cursor="Download">
 
               <Download size={14} />
