@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Download } from "lucide-react";
 
 const navItems = [
 { label: "works", href: "#projects" },
+{ label: "skills", href: "#skills" },
 { label: "about", href: "#about" },
 { label: "contact", href: "#contact" }];
 
@@ -61,6 +62,15 @@ const Navbar = () => {
               }
               </span>
             )}
+            <a
+              href="/resume.pdf"
+              download
+              className="ml-4 inline-flex items-center gap-2 font-body text-xs uppercase tracking-widest text-background bg-foreground px-4 py-2 hover:bg-accent hover:text-background transition-all duration-300 cursor-none"
+              data-cursor="Download"
+            >
+              <Download size={14} />
+              Resume
+            </a>
           </div>
 
           {/* Mobile toggle */}
@@ -87,10 +97,17 @@ const Navbar = () => {
               key={item.href}
               onClick={() => handleClick(item.href)}
               className="font-body text-base text-foreground hover:text-primary transition-colors text-left">
-
                   {item.label}
                 </button>
             )}
+              <a
+                href="/resume.pdf"
+                download
+                className="inline-flex items-center gap-2 font-body text-sm text-foreground hover:text-primary transition-colors"
+              >
+                <Download size={16} />
+                Download Resume
+              </a>
             </div>
           </motion.div>
         }
