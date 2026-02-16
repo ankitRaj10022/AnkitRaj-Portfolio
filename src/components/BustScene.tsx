@@ -49,7 +49,7 @@ const BustModel = ({
   });
 
   return (
-    <group ref={groupRef} position={[0, -15, 0]} scale={0.12}>
+    <group ref={groupRef} position={[0, -0.6, 0]} scale={4}>
       <primitive object={clonedScene} />
     </group>
   );
