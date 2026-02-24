@@ -17,11 +17,11 @@ const AboutSection = () => {
       const words = textRef.current.querySelectorAll(".word");
       gsap.fromTo(
         words,
-        { opacity: 0.15 },
+        { opacity: 0.1 },
         {
           opacity: 1,
           duration: 0.5,
-          stagger: 0.05,
+          stagger: 0.04,
           scrollTrigger: {
             trigger: textRef.current,
             start: "top 75%",
@@ -34,44 +34,31 @@ const AboutSection = () => {
   }, []);
 
   const aboutText =
-    "I use my passion and skills to create digital products and experiences. National and international customers rely on me for design, implementation, and management of their digital products. As an independent, I work with web agencies, companies, startups and individuals to create a blueprint for the digital business.";
+    "With 10 years under our belt, we're experts at crafting — memorable websites and brand visuals that reflect each client's unique story. I use my passion and skills to create digital products and experiences that make an impact.";
 
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="py-32 md:py-48 px-6 md:px-10 lg:px-16 relative min-h-screen"
+      className="py-32 md:py-48 px-6 md:px-10 lg:px-16 relative"
     >
       <div className="max-w-7xl mx-auto" ref={ref}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4 items-start">
-          {/* Left: Text Content */}
-          <div className="order-1">
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              className="font-display text-4xl md:text-6xl lg:text-7xl uppercase tracking-tight text-foreground mb-12 md:mb-16"
-            >
-              Hello. I am
-              <br />
-              <span className="font-serif italic normal-case text-accent">
-                Ankit Raj
-              </span>
-            </motion.h2>
+        {/* Label */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="flex items-center gap-3 mb-6"
+        >
+          <span className="font-body text-xs uppercase tracking-[0.3em] text-accent">
+            ● About
+          </span>
+          <div className="w-12 h-[1px] bg-accent/40" />
+        </motion.div>
 
-            <div ref={textRef} className="max-w-xl">
-              <p className="font-display text-lg md:text-xl lg:text-2xl leading-relaxed uppercase tracking-wide text-foreground/80">
-                {aboutText.split(" ").map((word, i) => (
-                  <span key={i} className="word inline-block mr-[0.3em]">
-                    {word}
-                  </span>
-                ))}
-              </p>
-            </div>
-          </div>
-
-          {/* Right: 3D Bust */}
-          <div className="order-2 relative h-[500px] md:h-[600px] lg:h-[700px] lg:-mt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-start">
+          {/* Left: 3D Bust */}
+          <div className="order-2 lg:order-1 relative h-[400px] md:h-[550px] lg:h-[650px]">
             <Suspense
               fallback={
                 <div className="w-full h-full flex items-center justify-center">
@@ -81,6 +68,60 @@ const AboutSection = () => {
             >
               <BustScene sectionRef={sectionRef} />
             </Suspense>
+            
+            {/* Decorative frame around 3D */}
+            <div className="absolute inset-4 border border-foreground/5 pointer-events-none" />
+          </div>
+
+          {/* Right: Text Content */}
+          <div className="order-1 lg:order-2 lg:pl-8">
+            <motion.h2
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.9, delay: 0.1 }}
+              className="font-serif text-2xl md:text-3xl lg:text-4xl leading-snug text-foreground mb-10"
+            >
+              We're the studio
+              <br />
+              that transforms{" "}
+              <span className="text-accent italic">(creative)</span>
+              <br />
+              visions, honoring{" "}
+              <span className="text-accent italic">(originality)</span>
+              <br />
+              in every detail.
+            </motion.h2>
+
+            <div ref={textRef} className="max-w-lg mb-12">
+              <p className="font-body text-sm md:text-base leading-relaxed text-muted-foreground">
+                {aboutText.split(" ").map((word, i) => (
+                  <span key={i} className="word inline-block mr-[0.3em]">
+                    {word}
+                  </span>
+                ))}
+              </p>
+            </div>
+
+            {/* Info pills */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="flex flex-col gap-3"
+            >
+              <div className="flex items-center gap-3">
+                <span className="font-display text-sm text-accent">01.</span>
+                <span className="font-body text-sm text-foreground/70">Software Engineer</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="font-display text-sm text-accent">02.</span>
+                <span className="font-body text-sm text-foreground/70">Full-Stack Developer</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="font-display text-sm text-accent">03.</span>
+                <span className="font-body text-sm text-foreground/70">Game Developer</span>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>

@@ -10,75 +10,83 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
   const [phase, setPhase] = useState<"counting" | "revealing">("counting");
 
   useEffect(() => {
-    const duration = 1800;
-    const steps = 60;
+    const duration = 2200;
+    const steps = 100;
     const interval = duration / steps;
     let step = 0;
 
     const timer = setInterval(() => {
       step++;
-      // Eased progress for a natural feel
-      const progress = Math.min(Math.round((step / steps) ** 1.5 * 100), 100);
+      const progress = Math.min(Math.round((step / steps) ** 2 * 100), 100);
       setCount(progress);
       if (step >= steps) {
         clearInterval(timer);
-        setTimeout(() => setPhase("revealing"), 300);
-        setTimeout(() => onComplete(), 1400);
+        setTimeout(() => setPhase("revealing"), 400);
+        setTimeout(() => onComplete(), 1600);
       }
     }, interval);
 
     return () => clearInterval(timer);
   }, [onComplete]);
 
+  const name = "ANKIT RAJ";
+
   return (
     <AnimatePresence>
-      {phase !== "revealing" ? null : null}
       <motion.div
-        className="fixed inset-0 z-[9999] flex items-center justify-center bg-background"
+        className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background"
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6 }}
       >
-        {/* Top curtain */}
+        {/* Curtain left */}
         <motion.div
-          className="absolute top-0 left-0 right-0 bg-background z-10"
-          initial={{ height: "50%" }}
-          animate={phase === "revealing" ? { height: "0%" } : { height: "50%" }}
-          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
+          className="absolute top-0 left-0 bottom-0 bg-accent z-20"
+          initial={{ width: "0%" }}
+          animate={phase === "revealing" ? { width: "100%" } : { width: "0%" }}
+          transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
         />
-        {/* Bottom curtain */}
+        {/* Curtain right overlay */}
         <motion.div
-          className="absolute bottom-0 left-0 right-0 bg-background z-10"
-          initial={{ height: "50%" }}
-          animate={phase === "revealing" ? { height: "0%" } : { height: "50%" }}
-          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
+          className="absolute top-0 left-0 bottom-0 bg-background z-30"
+          initial={{ width: "0%" }}
+          animate={phase === "revealing" ? { width: "100%" } : { width: "0%" }}
+          transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1], delay: 0.15 }}
         />
 
-        {/* Center content */}
-        <div className="relative z-20 flex flex-col items-center gap-6">
+        {/* Counter */}
+        <div className="relative z-10 flex flex-col items-center gap-8">
           <motion.div
             className="overflow-hidden"
-            initial={{ opacity: 1 }}
-            animate={phase === "revealing" ? { opacity: 0, y: -30 } : {}}
-            transition={{ duration: 0.4 }}
+            animate={phase === "revealing" ? { opacity: 0, y: -40 } : {}}
+            transition={{ duration: 0.3 }}
           >
-            <motion.h1
-              className="font-display text-[20vw] md:text-[12vw] leading-none text-foreground uppercase tracking-tight"
-              initial={{ y: 100 }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            >
-              Portfolio
-            </motion.h1>
+            <div className="flex items-baseline gap-2">
+              {name.split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  className="font-display text-[8vw] md:text-[5vw] leading-none text-foreground uppercase"
+                  initial={{ y: 80, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.1 + i * 0.04,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div
-            className="flex items-center gap-4"
+            className="flex items-center gap-6"
             initial={{ opacity: 0 }}
             animate={phase === "counting" ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
+            transition={{ duration: 0.3, delay: 0.6 }}
           >
-            <div className="w-32 h-[1px] bg-foreground/20 relative overflow-hidden">
+            <div className="w-48 h-[2px] bg-foreground/10 relative overflow-hidden">
               <motion.div
                 className="absolute inset-y-0 left-0 bg-accent"
                 initial={{ width: "0%" }}
@@ -86,8 +94,8 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
                 transition={{ duration: 0.05 }}
               />
             </div>
-            <span className="font-body text-xs tracking-widest text-muted-foreground tabular-nums w-8">
-              {count}
+            <span className="font-display text-2xl tracking-widest text-accent tabular-nums">
+              {String(count).padStart(3, "0")}
             </span>
           </motion.div>
         </div>

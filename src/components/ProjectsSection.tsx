@@ -12,37 +12,48 @@ gsap.registerPlugin(ScrollTrigger);
 const projects = [
   {
     title: "Project Alpha",
-    description: "A bespoke website to spotlight branding & art direction prowess.",
-    tags: "UX/UI Design, Development",
+    category: "UX/UI Design",
+    tags: "Design, Development",
     image: project1,
     year: "2025",
+    size: "large",
   },
   {
     title: "Project Beta",
-    description: "A new website with tailored design and development for an emerging brand.",
+    category: "Branding",
     tags: "UX/UI Design, Development",
     image: project2,
     year: "2024",
+    size: "small",
   },
   {
     title: "Project Gamma",
-    description: "Tailored user-friendly and visually appealing UX/UI for a fintech platform.",
-    tags: "UX/UI Design",
+    category: "Development",
+    tags: "Full-Stack, Game Dev",
     image: project3,
     year: "2024",
+    size: "small",
+  },
+  {
+    title: "Project Delta",
+    category: "Motion Design",
+    tags: "Interaction Design, Motion",
+    image: project1,
+    year: "2024",
+    size: "large",
   },
 ];
 
 const ProjectsSection = () => {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   useEffect(() => {
     if (headingRef.current) {
       gsap.fromTo(
         headingRef.current,
-        { x: -100, opacity: 0 },
+        { x: -80, opacity: 0 },
         {
           x: 0,
           opacity: 1,
@@ -59,69 +70,87 @@ const ProjectsSection = () => {
   }, []);
 
   return (
-    <section
-      id="projects"
-      className="py-32 md:py-48 px-6 md:px-10 lg:px-16 relative"
-    >
+    <section id="projects" className="py-32 md:py-48 px-6 md:px-10 lg:px-16 relative">
       <div className="max-w-7xl mx-auto">
-        {/* Section label */}
-        <div className="flex items-center gap-4 mb-4">
-          <span className="font-body text-xs uppercase tracking-widest text-muted-foreground">
-            ✦ Selected cases
+        {/* Label */}
+        <div className="flex items-center gap-3 mb-6">
+          <span className="font-body text-xs uppercase tracking-[0.3em] text-accent">
+            ● Selected cases
           </span>
+          <div className="w-12 h-[1px] bg-accent/40" />
         </div>
 
-        <h2
-          ref={headingRef}
-          className="font-display text-5xl md:text-7xl lg:text-8xl uppercase tracking-tight text-foreground mb-16 md:mb-24"
-          style={{ opacity: 0 }}
-        >
-          Works
-        </h2>
+        {/* Heading with count */}
+        <div className="flex items-end justify-between mb-16 md:mb-24">
+          <h2
+            ref={headingRef}
+            className="font-display text-6xl md:text-8xl lg:text-[10rem] uppercase tracking-tight text-foreground leading-[0.85]"
+            style={{ opacity: 0 }}
+          >
+            Selected
+            <br />
+            Works
+          </h2>
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.5 }}
+            className="font-display text-4xl md:text-6xl text-accent hidden md:block"
+          >
+            {String(projects.length).padStart(2, "0")}
+          </motion.span>
+        </div>
 
-        {/* Project list */}
-        <div ref={ref} className="space-y-0 border-t border-border">
+        {/* Project grid — 2 columns, alternating sizes */}
+        <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {projects.map((project, i) => (
             <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
-            className="group border-b border-border cursor-none"
-            data-cursor="View"
+              key={project.title + i}
+              initial={{ opacity: 0, y: 60, scale: 0.95 }}
+              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className={`group relative overflow-hidden cursor-none ${
+                project.size === "large" ? "md:row-span-1" : ""
+              }`}
+              data-cursor="View"
             >
-              <div className="flex items-center justify-between py-6 md:py-8">
-                <div className="flex-1">
-                  <h3 className="font-display text-3xl md:text-5xl lg:text-6xl uppercase tracking-tight text-foreground group-hover:text-accent transition-colors duration-500">
-                    {project.title}
-                  </h3>
-                  <p className="font-body text-sm text-muted-foreground mt-1">
-                    {project.tags}
-                  </p>
-                </div>
-                <div className="flex items-center gap-4 md:gap-8">
-                  <span className="hidden md:block font-body text-sm text-muted-foreground">
-                    {project.year}
-                  </span>
-                  <div className="w-10 h-10 border border-border rounded-full flex items-center justify-center group-hover:bg-foreground group-hover:text-background transition-all duration-500">
-                    <ArrowUpRight className="w-4 h-4" />
-                  </div>
+              {/* Image */}
+              <div className="relative overflow-hidden aspect-[4/3]">
+                <motion.img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
+                {/* Overlay on hover */}
+                <div className="absolute inset-0 bg-background/0 group-hover:bg-background/60 transition-all duration-500 flex items-center justify-center">
+                  <motion.div
+                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center gap-2"
+                  >
+                    <span className="font-body text-sm uppercase tracking-widest text-foreground">
+                      View Project
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-accent" />
+                  </motion.div>
                 </div>
               </div>
 
-              {/* Expandable image on hover (desktop) */}
-              <div className="hidden md:block overflow-hidden max-h-0 group-hover:max-h-[400px] transition-all duration-700 ease-in-out">
-                <div className="pb-8 flex gap-8">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-1/2 h-64 object-cover"
-                    loading="lazy"
-                  />
-                  <div className="flex-1 flex items-end">
-                    <p className="font-body text-base text-muted-foreground max-w-md">
-                      {project.description}
-                    </p>
+              {/* Info */}
+              <div className="flex items-center justify-between py-4">
+                <div>
+                  <h3 className="font-display text-xl md:text-2xl uppercase tracking-tight text-foreground group-hover:text-accent transition-colors duration-300">
+                    {project.title}
+                  </h3>
+                  <p className="font-body text-xs text-muted-foreground mt-1">
+                    {project.tags}
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="font-body text-xs text-muted-foreground">
+                    {project.category}
+                  </span>
+                  <div className="w-8 h-8 border border-border rounded-full flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-300">
+                    <ArrowUpRight className="w-3 h-3 group-hover:text-accent-foreground" />
                   </div>
                 </div>
               </div>
