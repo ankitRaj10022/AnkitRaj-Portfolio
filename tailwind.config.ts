@@ -14,9 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['Bebas Neue', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
-        body: ['Space Grotesk', 'sans-serif'],
+        display: ['Bangers', 'cursive'],
+        serif: ['Bangers', 'cursive'],
+        body: ['Comic Neue', 'cursive'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -77,10 +77,26 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "wiggle": {
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" },
+        },
+        "pop": {
+          "0%": { transform: "scale(0) rotate(-12deg)", opacity: "0" },
+          "60%": { transform: "scale(1.15) rotate(3deg)", opacity: "1" },
+          "100%": { transform: "scale(1) rotate(0deg)", opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "float": "float 3s ease-in-out infinite",
+        "wiggle": "wiggle 2s ease-in-out infinite",
+        "pop": "pop 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards",
       },
     },
   },

@@ -8,12 +8,11 @@ const CustomCursor = () => {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
+  const springConfig = { damping: 20, stiffness: 400, mass: 0.3 };
   const x = useSpring(cursorX, springConfig);
   const y = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    // Only on desktop
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
     const move = (e: MouseEvent) => {
@@ -56,7 +55,6 @@ const CustomCursor = () => {
     };
   }, [cursorX, cursorY]);
 
-  // Don't render on touch devices
   if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
     return null;
   }
@@ -65,7 +63,7 @@ const CustomCursor = () => {
     <>
       {/* Dot */}
       <motion.div
-        className="fixed top-0 left-0 z-[9999] pointer-events-none mix-blend-difference"
+        className="fixed top-0 left-0 z-[9999] pointer-events-none"
         style={{ x, y, translateX: "-50%", translateY: "-50%" }}
         animate={{
           scale: isHidden ? 0 : isHovering ? 0.5 : 1,
@@ -73,25 +71,28 @@ const CustomCursor = () => {
         }}
         transition={{ duration: 0.15 }}
       >
-        <div className="w-3 h-3 rounded-full bg-foreground" />
+        <div className="w-4 h-4 bg-foreground border-2 border-card" style={{ borderRadius: 0 }} />
       </motion.div>
 
       {/* Ring */}
       <motion.div
-        className="fixed top-0 left-0 z-[9999] pointer-events-none mix-blend-difference"
+        className="fixed top-0 left-0 z-[9999] pointer-events-none"
         style={{ x, y, translateX: "-50%", translateY: "-50%" }}
         animate={{
-          scale: isHidden ? 0 : isHovering ? 2.5 : 1,
+          scale: isHidden ? 0 : isHovering ? 2 : 1,
           opacity: isHidden ? 0 : 1,
         }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
       >
-        <div className="w-10 h-10 rounded-full border border-foreground/50 flex items-center justify-center">
+        <div
+          className="w-10 h-10 border-3 border-foreground bg-primary/30 flex items-center justify-center"
+          style={{ border: '3px solid hsl(var(--foreground))' }}
+        >
           {hoverText && isHovering && (
             <motion.span
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="text-[6px] uppercase tracking-wider text-foreground font-body whitespace-nowrap"
+              className="text-[7px] uppercase font-display text-foreground whitespace-nowrap"
             >
               {hoverText}
             </motion.span>

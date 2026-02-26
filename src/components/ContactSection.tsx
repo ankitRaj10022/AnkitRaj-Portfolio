@@ -5,79 +5,95 @@ const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const words = ["LET'S", "BUILD", "SOMETHING", "EPIC"];
+  const words = ["LET'S", "BUILD", "SOMETHING", "EPIC!"];
 
   return (
-    <section id="contact" className="relative py-32 md:py-48 px-6 md:px-10 lg:px-16 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-card" />
+    <section id="contact" className="relative py-24 md:py-32 px-4 md:px-8 lg:px-12 overflow-hidden halftone-bg">
+      {/* Decorative shapes */}
+      <motion.div
+        className="absolute top-10 right-10 w-20 h-20 bg-secondary comic-circle hidden md:block"
+        animate={{ y: [0, -10, 0] }}
+        transition={{ repeat: Infinity, duration: 3 }}
+      />
+      <motion.div
+        className="absolute bottom-20 left-10 w-12 h-12 bg-primary rotate-45 hidden md:block"
+        style={{ border: '3px solid hsl(var(--foreground))' }}
+        animate={{ rotate: [45, 90, 45] }}
+        transition={{ repeat: Infinity, duration: 4 }}
+      />
 
-      <div className="relative z-10 max-w-7xl mx-auto" ref={ref}>
-        {/* Label */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="flex items-center gap-3 mb-6"
-        >
-          <span className="font-body text-xs uppercase tracking-[0.3em] text-accent">
-            ● Got a project in mind?
-          </span>
-        </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="font-body text-sm md:text-base text-muted-foreground max-w-md mb-16"
-        >
-          Whether it's a game, a SaaS product, or something entirely new — let's make it happen.
-        </motion.p>
-
-        {/* Giant CTA text */}
-        <div className="space-y-0">
-          {words.map((word, i) => (
-            <div key={i} className="overflow-hidden">
-              <motion.h2
-                initial={{ y: 120, opacity: 0, skewY: 3 }}
-                animate={isInView ? { y: 0, opacity: 1, skewY: 0 } : {}}
-                transition={{
-                  duration: 1,
-                  delay: 0.2 + i * 0.08,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="font-display text-[16vw] md:text-[12vw] lg:text-[10vw] leading-[0.9] uppercase tracking-tight text-foreground"
-              >
-                {word}
-              </motion.h2>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA button & email */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-16 flex flex-col md:flex-row items-start md:items-center gap-8"
-        >
-          <a
-            href="mailto:hello@ankitraj.dev"
-            data-cursor="Email"
-            className="font-body text-sm md:text-base uppercase tracking-[0.2em] text-foreground border border-foreground/20 px-10 py-5 hover:bg-accent hover:border-accent hover:text-accent-foreground transition-all duration-500 cursor-none group inline-flex items-center gap-3"
+      <div className="relative z-10 max-w-5xl mx-auto" ref={ref}>
+        {/* Comic panel */}
+        <div className="comic-panel p-8 md:p-12 lg:p-16 text-center">
+          {/* Section badge */}
+          <motion.div
+            initial={{ scale: 0, rotate: -10 }}
+            animate={isInView ? { scale: 1, rotate: -3 } : {}}
+            transition={{ type: "spring", stiffness: 200 }}
+            className="inline-block bg-secondary text-foreground font-display text-sm px-4 py-1 mb-8 border-2 border-foreground"
           >
-            Start a Project
-            <motion.span
-              className="inline-block"
-              animate={{ x: [0, 5, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
+            ★ NEXT CHAPTER ★
+          </motion.div>
+
+          {/* Giant CTA text */}
+          <div className="space-y-1 mb-8">
+            {words.map((word, i) => (
+              <div key={i} className="overflow-hidden">
+                <motion.h2
+                  initial={{ y: 100, opacity: 0, rotate: -5 }}
+                  animate={isInView ? { y: 0, opacity: 1, rotate: 0 } : {}}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.2 + i * 0.08,
+                    type: "spring",
+                    stiffness: 100,
+                  }}
+                  className="font-display text-[14vw] md:text-[10vw] lg:text-[8vw] leading-[0.95] text-foreground comic-outline"
+                >
+                  {word}
+                </motion.h2>
+              </div>
+            ))}
+          </div>
+
+          {/* Speech bubble */}
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={isInView ? { scale: 1 } : {}}
+            transition={{ delay: 0.6, type: "spring" }}
+            className="inline-block speech-bubble mb-10"
+          >
+            <p className="font-body text-sm md:text-base text-foreground font-bold">
+              Games, SaaS, or something wild — let's make it happen!
+            </p>
+          </motion.div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <a
+              href="mailto:hello@ankitraj.dev"
+              data-cursor="Email"
+              className="font-display text-base md:text-lg text-primary-foreground bg-primary px-10 py-4 comic-btn inline-flex items-center gap-3"
             >
-              →
-            </motion.span>
-          </a>
-          <span className="font-body text-xs text-muted-foreground uppercase tracking-widest">
-            hello@ankitraj.dev
-          </span>
-        </motion.div>
+              START A PROJECT
+              <motion.span
+                className="inline-block text-xl"
+                animate={{ x: [0, 5, 0] }}
+                transition={{ repeat: Infinity, duration: 1 }}
+              >
+                →
+              </motion.span>
+            </a>
+            <span className="font-body text-sm text-foreground/70 font-bold">
+              hello@ankitraj.dev
+            </span>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

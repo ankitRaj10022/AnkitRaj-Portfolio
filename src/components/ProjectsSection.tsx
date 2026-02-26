@@ -11,41 +11,41 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    title: "Void Engine",
+    title: "VOID ENGINE",
     category: "Game Dev",
     tags: "Unity, C#, Multiplayer",
     image: project1,
     year: "2025",
-    type: "GAME",
+    type: "🎮 GAME",
   },
   {
-    title: "ShipFast",
+    title: "SHIPFAST",
     category: "SaaS",
-    tags: "React, Node, Stripe, Auth",
+    tags: "React, Node, Stripe",
     image: project2,
     year: "2024",
-    type: "SAAS",
+    type: "🚀 SAAS",
   },
   {
-    title: "Neon Drift",
+    title: "NEON DRIFT",
     category: "Game Dev",
     tags: "Unreal, C++, Racing",
     image: project3,
     year: "2024",
-    type: "GAME",
+    type: "🎮 GAME",
   },
   {
-    title: "MetricFlow",
+    title: "METRICFLOW",
     category: "SaaS",
-    tags: "Analytics, Dashboard, API",
+    tags: "Analytics, Dashboard",
     image: project1,
     year: "2024",
-    type: "SAAS",
+    type: "🚀 SAAS",
   },
 ];
 
 const ProjectsSection = () => {
-  const headingRef = useRef<HTMLHeadingElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -53,12 +53,13 @@ const ProjectsSection = () => {
     if (headingRef.current) {
       gsap.fromTo(
         headingRef.current,
-        { x: -80, opacity: 0 },
+        { x: -60, opacity: 0, rotate: -3 },
         {
           x: 0,
           opacity: 1,
-          duration: 1,
-          ease: "power3.out",
+          rotate: 0,
+          duration: 0.8,
+          ease: "back.out(1.7)",
           scrollTrigger: {
             trigger: headingRef.current,
             start: "top 80%",
@@ -70,35 +71,27 @@ const ProjectsSection = () => {
   }, []);
 
   return (
-    <section id="projects" className="py-32 md:py-48 px-6 md:px-10 lg:px-16 relative">
+    <section id="projects" className="py-24 md:py-32 px-4 md:px-8 lg:px-12 relative">
       <div className="max-w-7xl mx-auto">
-        {/* Label */}
-        <div className="flex items-center gap-3 mb-6">
-          <span className="font-body text-xs uppercase tracking-[0.3em] text-accent">
-            ● Selected work
-          </span>
-          <div className="w-12 h-[1px] bg-accent/40" />
-        </div>
+        {/* Section badge */}
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={isInView ? { scale: 1 } : {}}
+          transition={{ type: "spring", stiffness: 200 }}
+          className="inline-block bg-primary text-primary-foreground font-display text-sm px-4 py-1 mb-8 border-2 border-foreground -rotate-2"
+        >
+          ★ FEATURED EPISODES ★
+        </motion.div>
 
-        {/* Heading with count */}
-        <div className="flex items-end justify-between mb-16 md:mb-24">
-          <h2
-            ref={headingRef}
-            className="font-display text-6xl md:text-8xl lg:text-[10rem] uppercase tracking-tight text-foreground leading-[0.85]"
-            style={{ opacity: 0 }}
-          >
-            Featured
-            <br />
-            Projects
+        {/* Heading */}
+        <div
+          ref={headingRef}
+          className="comic-panel p-6 md:p-8 mb-12 md:mb-16 inline-block"
+          style={{ opacity: 0 }}
+        >
+          <h2 className="font-display text-5xl md:text-7xl lg:text-8xl text-foreground leading-[0.9]">
+            MY <span className="text-primary">WORK!</span>
           </h2>
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.5 }}
-            className="font-display text-4xl md:text-6xl text-accent hidden md:block"
-          >
-            {String(projects.length).padStart(2, "0")}
-          </motion.span>
         </div>
 
         {/* Project grid */}
@@ -106,51 +99,52 @@ const ProjectsSection = () => {
           {projects.map((project, i) => (
             <motion.div
               key={project.title + i}
-              initial={{ opacity: 0, y: 60, scale: 0.95 }}
-              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative overflow-hidden cursor-none"
+              initial={{ opacity: 0, y: 50, rotate: i % 2 === 0 ? -1 : 1, scale: 0.95 }}
+              animate={isInView ? { opacity: 1, y: 0, rotate: i % 2 === 0 ? -0.5 : 0.5, scale: 1 } : {}}
+              transition={{ duration: 0.7, delay: i * 0.12, type: "spring" }}
+              className="group cursor-pointer"
               data-cursor="View"
             >
-              {/* Image */}
-              <div className="relative overflow-hidden aspect-[4/3]">
-                <motion.img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  loading="lazy"
-                />
-                {/* Type badge */}
-                <div className="absolute top-4 left-4 font-body text-[10px] uppercase tracking-widest text-accent-foreground bg-accent px-3 py-1">
-                  {project.type}
+              <div className="comic-panel overflow-hidden">
+                {/* Image */}
+                <div className="relative overflow-hidden aspect-[4/3]">
+                  <motion.img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  {/* Type badge */}
+                  <div className="absolute top-3 left-3 font-display text-xs text-primary-foreground bg-primary px-3 py-1 border-2 border-foreground">
+                    {project.type}
+                  </div>
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/50 transition-all duration-400 flex items-center justify-center">
+                    <motion.div className="opacity-0 group-hover:opacity-100 transition-opacity duration-400">
+                      <span className="font-display text-2xl md:text-3xl text-card action-burst">
+                        VIEW!
+                      </span>
+                    </motion.div>
+                  </div>
                 </div>
-                {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-background/0 group-hover:bg-background/60 transition-all duration-500 flex items-center justify-center">
-                  <motion.div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center gap-2">
-                    <span className="font-body text-sm uppercase tracking-widest text-foreground">
-                      View Project
-                    </span>
-                    <ArrowUpRight className="w-4 h-4 text-accent" />
-                  </motion.div>
-                </div>
-              </div>
 
-              {/* Info */}
-              <div className="flex items-center justify-between py-4">
-                <div>
-                  <h3 className="font-display text-xl md:text-2xl uppercase tracking-tight text-foreground group-hover:text-accent transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  <p className="font-body text-xs text-muted-foreground mt-1">
-                    {project.tags}
-                  </p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="font-body text-xs text-muted-foreground">
-                    {project.year}
-                  </span>
-                  <div className="w-8 h-8 border border-border rounded-full flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-300">
-                    <ArrowUpRight className="w-3 h-3 group-hover:text-accent-foreground" />
+                {/* Info */}
+                <div className="flex items-center justify-between p-4 bg-card">
+                  <div>
+                    <h3 className="font-display text-xl md:text-2xl text-foreground group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="font-body text-xs text-foreground/70 mt-0.5">
+                      {project.tags}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-body text-xs text-foreground/60 font-bold">
+                      {project.year}
+                    </span>
+                    <div className="w-8 h-8 border-2 border-foreground bg-card flex items-center justify-center group-hover:bg-primary transition-all duration-200">
+                      <ArrowUpRight className="w-4 h-4 group-hover:text-primary-foreground" />
+                    </div>
                   </div>
                 </div>
               </div>

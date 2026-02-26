@@ -26,22 +26,22 @@ const Index = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: loading ? 0 : 1 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
       >
         <Navbar />
         <HeroSection />
-        <MarqueeBanner text="GAMES — SAAS — FULL-STACK — SYSTEMS — " />
+        <MarqueeBanner text="POW! — GAMES — SAAS — CODE — BAM! — " />
         <SectionReveal>
           <AboutSection />
         </SectionReveal>
-        <MarqueeBanner text="UNITY — UNREAL — REACT — NODE — TYPESCRIPT — " speed={25} />
+        <MarqueeBanner text="UNITY — UNREAL — REACT — NODE — BOOM! — " speed={25} />
         <SectionReveal delay={0.1}>
           <SkillsSection />
         </SectionReveal>
         <SectionReveal delay={0.1}>
           <ProjectsSection />
         </SectionReveal>
-        <MarqueeBanner text="LET'S BUILD TOGETHER — " speed={15} />
+        <MarqueeBanner text="ZAP! — LET'S BUILD — KAPOW! — " speed={15} />
         <SectionReveal delay={0.1}>
           <ContactSection />
         </SectionReveal>

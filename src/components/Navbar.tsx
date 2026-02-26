@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download } from "lucide-react";
 
 const navItems = [
-  { label: "work", href: "#projects" },
-  { label: "skills", href: "#skills" },
-  { label: "about", href: "#about" },
-  { label: "contact", href: "#contact" },
+  { label: "WORK", href: "#projects" },
+  { label: "SKILLS", href: "#skills" },
+  { label: "ABOUT", href: "#about" },
+  { label: "CONTACT", href: "#contact" },
 ];
 
 const Navbar = () => {
@@ -28,46 +28,50 @@ const Navbar = () => {
     <motion.nav
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "bg-background/90 backdrop-blur-md" : "bg-transparent"
+      transition={{ duration: 0.6, delay: 0.3 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-secondary/95 backdrop-blur-sm" : "bg-transparent"
       }`}
     >
-      <div className="w-full px-6 md:px-10 lg:px-16">
-        <div className="flex items-center justify-between h-14 md:h-20">
+      <div className="w-full px-4 md:px-8 lg:px-12">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Logo */}
           <button
             onClick={() => handleClick("#hero")}
-            className="font-display text-xl md:text-2xl text-foreground hover:text-accent transition-colors uppercase tracking-tight"
+            className="font-display text-2xl md:text-3xl text-foreground comic-outline hover:text-primary transition-colors"
           >
-            ANKIT<span className="text-accent">.</span>
+            ANKIT<span className="text-primary">!</span>
           </button>
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <button
-                key={item.href}
-                onClick={() => handleClick(item.href)}
-                className="font-body text-xs uppercase tracking-[0.15em] text-foreground/70 hover:text-accent transition-colors duration-300 px-1 relative group"
-              >
-                {item.label}
-                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-accent group-hover:w-full transition-all duration-300" />
-              </button>
-            ))}
+          {/* Desktop nav - comic panel style */}
+          <div className="hidden md:flex items-center">
+            <div className="flex items-center gap-1 bg-card border-3 border-foreground px-2 py-1"
+              style={{ border: '3px solid hsl(var(--foreground))' }}
+            >
+              {navItems.map((item) => (
+                <button
+                  key={item.href}
+                  onClick={() => handleClick(item.href)}
+                  className="font-display text-sm text-foreground hover:bg-primary hover:text-primary-foreground px-3 py-1.5 transition-all duration-200"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
             <a
               href="/resume.pdf"
               download
-              className="ml-4 inline-flex items-center gap-2 font-body text-xs uppercase tracking-widest text-background bg-accent px-5 py-2.5 hover:bg-foreground transition-all duration-300 cursor-none"
+              className="ml-4 inline-flex items-center gap-2 font-display text-sm text-primary-foreground bg-primary px-5 py-2 comic-btn"
               data-cursor="Download"
             >
-              <Download size={12} />
-              Resume
+              <Download size={14} />
+              RESUME
             </a>
           </div>
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden text-foreground p-2"
+            className="md:hidden text-foreground p-2 border-2 border-foreground bg-card"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -81,14 +85,14 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background/95 backdrop-blur-md border-b border-border"
+            className="md:hidden bg-card border-b-4 border-foreground"
           >
-            <div className="px-6 py-6 flex flex-col gap-4">
+            <div className="px-4 py-4 flex flex-col gap-2">
               {navItems.map((item) => (
                 <button
                   key={item.href}
                   onClick={() => handleClick(item.href)}
-                  className="font-body text-base text-foreground hover:text-accent transition-colors text-left"
+                  className="font-display text-lg text-foreground hover:text-primary transition-colors text-left px-2 py-1"
                 >
                   {item.label}
                 </button>
@@ -96,10 +100,10 @@ const Navbar = () => {
               <a
                 href="/resume.pdf"
                 download
-                className="inline-flex items-center gap-2 font-body text-sm text-accent"
+                className="inline-flex items-center gap-2 font-display text-base text-primary mt-2"
               >
                 <Download size={16} />
-                Download Resume
+                DOWNLOAD RESUME
               </a>
             </div>
           </motion.div>

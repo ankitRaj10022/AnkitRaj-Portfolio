@@ -2,10 +2,10 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 const services = [
-  { num: "01", title: "Game Development", description: "Immersive 3D/2D games built in Unity and Unreal — from concept to release across platforms." },
-  { num: "02", title: "SaaS Products", description: "End-to-end SaaS architecture — auth, billing, dashboards, APIs — built for scale from day one." },
-  { num: "03", title: "Full-Stack Dev", description: "React, Node, TypeScript, cloud infrastructure. Clean code, fast performance, shipped on time." },
-  { num: "04", title: "Systems Design", description: "Multiplayer backends, real-time data pipelines, and scalable architecture for complex products." },
+  { num: "01", title: "GAME DEV", description: "Immersive 3D/2D games in Unity & Unreal — concept to release.", icon: "🎮" },
+  { num: "02", title: "SAAS BUILD", description: "Auth, billing, dashboards, APIs — built for scale from day one.", icon: "🚀" },
+  { num: "03", title: "FULL-STACK", description: "React, Node, TypeScript, cloud. Clean code, shipped on time.", icon: "⚡" },
+  { num: "04", title: "SYSTEMS", description: "Multiplayer backends, real-time pipelines, scalable architecture.", icon: "🔧" },
 ];
 
 const SkillsSection = () => {
@@ -13,63 +13,57 @@ const SkillsSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="skills" className="py-32 md:py-48 px-6 md:px-10 lg:px-16 relative">
+    <section id="skills" className="py-24 md:py-32 px-4 md:px-8 lg:px-12 relative halftone-bg">
       <div className="max-w-7xl mx-auto" ref={ref}>
-        {/* Label */}
+        {/* Section badge */}
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="flex items-center gap-3 mb-6"
+          initial={{ scale: 0, rotate: 10 }}
+          animate={isInView ? { scale: 1, rotate: -2 } : {}}
+          transition={{ type: "spring", stiffness: 200 }}
+          className="inline-block bg-secondary text-foreground font-display text-sm px-4 py-1 mb-8 border-2 border-foreground"
         >
-          <span className="font-body text-xs uppercase tracking-[0.3em] text-accent">
-            ● What I do
-          </span>
-          <div className="w-12 h-[1px] bg-accent/40" />
+          ★ SUPER POWERS ★
         </motion.div>
 
         {/* Heading */}
-        <motion.h2
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.1 }}
-          className="font-serif text-2xl md:text-3xl lg:text-4xl leading-snug text-foreground mb-20 max-w-3xl"
+          transition={{ duration: 0.7 }}
+          className="comic-panel p-6 md:p-8 mb-10 max-w-2xl"
         >
-          I ship <span className="text-accent italic">(games)</span> people play
-          and <span className="text-accent italic">(software)</span> teams rely on.
-        </motion.h2>
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground leading-tight">
+            I ship <span className="text-primary">GAMES</span> people play and{" "}
+            <span className="text-primary">SOFTWARE</span> teams rely on!
+          </h2>
+        </motion.div>
 
-        {/* Services list */}
-        <div className="space-y-0">
+        {/* Services grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {services.map((service, i) => (
             <motion.div
               key={service.num}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.2 + i * 0.1 }}
-              className="group border-t border-border py-8 md:py-12 cursor-none"
-              data-cursor="View"
+              initial={{ opacity: 0, y: 40, rotate: i % 2 === 0 ? -2 : 2 }}
+              animate={isInView ? { opacity: 1, y: 0, rotate: i % 2 === 0 ? -0.5 : 0.5 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 + i * 0.1, type: "spring" }}
+              className="comic-panel p-6 md:p-8 group hover:bg-secondary transition-colors duration-200 cursor-pointer"
             >
-              <div className="flex items-start md:items-center gap-6 md:gap-12">
-                <motion.span
-                  className="font-display text-4xl md:text-6xl lg:text-7xl text-accent/80 group-hover:text-accent transition-colors duration-500 leading-none"
-                  whileHover={{ scale: 1.1, x: 5 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  {service.num}
-                </motion.span>
-                <div className="flex-1 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <h3 className="font-display text-3xl md:text-5xl lg:text-6xl uppercase tracking-tight text-foreground group-hover:text-accent transition-colors duration-500">
-                    {service.title}
-                  </h3>
-                  <p className="font-body text-sm text-muted-foreground max-w-xs md:text-right">
+              <div className="flex items-start gap-4">
+                <span className="text-3xl md:text-4xl">{service.icon}</span>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="font-display text-lg text-primary">{service.num}</span>
+                    <h3 className="font-display text-2xl md:text-3xl text-foreground group-hover:text-primary transition-colors">
+                      {service.title}
+                    </h3>
+                  </div>
+                  <p className="font-body text-sm text-foreground/80">
                     {service.description}
                   </p>
                 </div>
               </div>
             </motion.div>
           ))}
-          <div className="border-t border-border" />
         </div>
       </div>
     </section>
