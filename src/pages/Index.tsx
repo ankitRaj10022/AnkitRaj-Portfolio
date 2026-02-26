@@ -30,18 +30,18 @@ const Index = () => {
       >
         <Navbar />
         <HeroSection />
-        <MarqueeBanner />
+        <MarqueeBanner text="GAMES — SAAS — FULL-STACK — SYSTEMS — " />
         <SectionReveal>
           <AboutSection />
         </SectionReveal>
-        <MarqueeBanner text="STRATEGY — BRANDING — DEVELOPMENT — MOTION — " speed={25} />
+        <MarqueeBanner text="UNITY — UNREAL — REACT — NODE — TYPESCRIPT — " speed={25} />
         <SectionReveal delay={0.1}>
           <SkillsSection />
         </SectionReveal>
         <SectionReveal delay={0.1}>
           <ProjectsSection />
         </SectionReveal>
-        <MarqueeBanner text="LET'S COLLABORATE — " speed={15} />
+        <MarqueeBanner text="LET'S BUILD TOGETHER — " speed={15} />
         <SectionReveal delay={0.1}>
           <ContactSection />
         </SectionReveal>

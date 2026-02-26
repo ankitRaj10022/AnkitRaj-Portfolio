@@ -11,36 +11,36 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    title: "Project Alpha",
-    category: "UX/UI Design",
-    tags: "Design, Development",
+    title: "Void Engine",
+    category: "Game Dev",
+    tags: "Unity, C#, Multiplayer",
     image: project1,
     year: "2025",
-    size: "large",
+    type: "GAME",
   },
   {
-    title: "Project Beta",
-    category: "Branding",
-    tags: "UX/UI Design, Development",
+    title: "ShipFast",
+    category: "SaaS",
+    tags: "React, Node, Stripe, Auth",
     image: project2,
     year: "2024",
-    size: "small",
+    type: "SAAS",
   },
   {
-    title: "Project Gamma",
-    category: "Development",
-    tags: "Full-Stack, Game Dev",
+    title: "Neon Drift",
+    category: "Game Dev",
+    tags: "Unreal, C++, Racing",
     image: project3,
     year: "2024",
-    size: "small",
+    type: "GAME",
   },
   {
-    title: "Project Delta",
-    category: "Motion Design",
-    tags: "Interaction Design, Motion",
+    title: "MetricFlow",
+    category: "SaaS",
+    tags: "Analytics, Dashboard, API",
     image: project1,
     year: "2024",
-    size: "large",
+    type: "SAAS",
   },
 ];
 
@@ -75,7 +75,7 @@ const ProjectsSection = () => {
         {/* Label */}
         <div className="flex items-center gap-3 mb-6">
           <span className="font-body text-xs uppercase tracking-[0.3em] text-accent">
-            ● Selected cases
+            ● Selected work
           </span>
           <div className="w-12 h-[1px] bg-accent/40" />
         </div>
@@ -87,9 +87,9 @@ const ProjectsSection = () => {
             className="font-display text-6xl md:text-8xl lg:text-[10rem] uppercase tracking-tight text-foreground leading-[0.85]"
             style={{ opacity: 0 }}
           >
-            Selected
+            Featured
             <br />
-            Works
+            Projects
           </h2>
           <motion.span
             initial={{ opacity: 0 }}
@@ -101,7 +101,7 @@ const ProjectsSection = () => {
           </motion.span>
         </div>
 
-        {/* Project grid — 2 columns, alternating sizes */}
+        {/* Project grid */}
         <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {projects.map((project, i) => (
             <motion.div
@@ -109,9 +109,7 @@ const ProjectsSection = () => {
               initial={{ opacity: 0, y: 60, scale: 0.95 }}
               animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
               transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className={`group relative overflow-hidden cursor-none ${
-                project.size === "large" ? "md:row-span-1" : ""
-              }`}
+              className="group relative overflow-hidden cursor-none"
               data-cursor="View"
             >
               {/* Image */}
@@ -122,11 +120,13 @@ const ProjectsSection = () => {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                 />
+                {/* Type badge */}
+                <div className="absolute top-4 left-4 font-body text-[10px] uppercase tracking-widest text-accent-foreground bg-accent px-3 py-1">
+                  {project.type}
+                </div>
                 {/* Overlay on hover */}
                 <div className="absolute inset-0 bg-background/0 group-hover:bg-background/60 transition-all duration-500 flex items-center justify-center">
-                  <motion.div
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center gap-2"
-                  >
+                  <motion.div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center gap-2">
                     <span className="font-body text-sm uppercase tracking-widest text-foreground">
                       View Project
                     </span>
@@ -147,7 +147,7 @@ const ProjectsSection = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="font-body text-xs text-muted-foreground">
-                    {project.category}
+                    {project.year}
                   </span>
                   <div className="w-8 h-8 border border-border rounded-full flex items-center justify-center group-hover:bg-accent group-hover:border-accent transition-all duration-300">
                     <ArrowUpRight className="w-3 h-3 group-hover:text-accent-foreground" />

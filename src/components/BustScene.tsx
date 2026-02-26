@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo } from "react";
+import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, useGLTF } from "@react-three/drei";
 import { useScroll, useMotionValueEvent } from "framer-motion";
@@ -17,10 +17,10 @@ const BustModel = ({
   const clonedScene = useMemo(() => {
     const clone = scene.clone(true);
     const material = new THREE.MeshStandardMaterial({
-      color: new THREE.Color("#d4c8b8"),
-      roughness: 0.4,
-      metalness: 0.2,
-      envMapIntensity: 1.2,
+      color: new THREE.Color("#1a1a1a"),
+      roughness: 0.25,
+      metalness: 0.85,
+      envMapIntensity: 1.8,
     });
 
     clone.traverse((child) => {
@@ -32,7 +32,7 @@ const BustModel = ({
     return clone;
   }, [scene]);
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     const p = progressRef.current ?? 0;
     if (groupRef.current) {
       groupRef.current.rotation.y = THREE.MathUtils.lerp(
@@ -45,6 +45,8 @@ const BustModel = ({
         p * 0.15 - 0.1,
         0.05
       );
+      // Subtle floating animation
+      groupRef.current.position.y = -0.6 + Math.sin(Date.now() * 0.001) * 0.03;
     }
   });
 
@@ -79,10 +81,10 @@ const BustSceneInner = ({ sectionRef }: BustSceneProps) => {
       style={{ width: "100%", height: "100%" }}
       gl={{ antialias: true, alpha: true }}
     >
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[3, 5, 2]} intensity={1.8} />
-      <directionalLight position={[-2, 3, -1]} intensity={0.6} color="#c4a882" />
-      <pointLight position={[0, 2, 3]} intensity={0.8} color="#e8d5b7" />
+      <ambientLight intensity={0.3} />
+      <directionalLight position={[3, 5, 2]} intensity={2} />
+      <directionalLight position={[-2, 3, -1]} intensity={0.4} color="#ff4500" />
+      <pointLight position={[0, 2, 3]} intensity={0.6} color="#ff6a33" />
       <Environment preset="city" />
       <BustModel progressRef={progress} />
     </Canvas>
