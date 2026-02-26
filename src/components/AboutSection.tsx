@@ -17,11 +17,11 @@ const AboutSection = () => {
       const words = textRef.current.querySelectorAll(".word");
       gsap.fromTo(
         words,
-        { opacity: 0.1 },
+        { opacity: 0.08 },
         {
           opacity: 1,
           duration: 0.5,
-          stagger: 0.04,
+          stagger: 0.03,
           scrollTrigger: {
             trigger: textRef.current,
             start: "top 75%",
@@ -34,7 +34,7 @@ const AboutSection = () => {
   }, []);
 
   const aboutText =
-    "With 10 years under our belt, we're experts at crafting — memorable websites and brand visuals that reflect each client's unique story. I use my passion and skills to create digital products and experiences that make an impact.";
+    "I build worlds — both virtual and digital. From immersive game experiences that push creative boundaries to SaaS platforms that solve real problems at scale. Every project is a system designed to perform, engage, and endure.";
 
   return (
     <section
@@ -68,8 +68,6 @@ const AboutSection = () => {
             >
               <BustScene sectionRef={sectionRef} />
             </Suspense>
-            
-            {/* Decorative frame around 3D */}
             <div className="absolute inset-4 border border-foreground/5 pointer-events-none" />
           </div>
 
@@ -81,15 +79,13 @@ const AboutSection = () => {
               transition={{ duration: 0.9, delay: 0.1 }}
               className="font-serif text-2xl md:text-3xl lg:text-4xl leading-snug text-foreground mb-10"
             >
-              We're the studio
+              Building immersive
               <br />
-              that transforms{" "}
-              <span className="text-accent italic">(creative)</span>
+              <span className="text-accent italic">(games)</span> &amp; scalable
               <br />
-              visions, honoring{" "}
-              <span className="text-accent italic">(originality)</span>
+              <span className="text-accent italic">(SaaS)</span> products
               <br />
-              in every detail.
+              from the ground up.
             </motion.h2>
 
             <div ref={textRef} className="max-w-lg mb-12">
@@ -111,16 +107,36 @@ const AboutSection = () => {
             >
               <div className="flex items-center gap-3">
                 <span className="font-display text-sm text-accent">01.</span>
-                <span className="font-body text-sm text-foreground/70">Software Engineer</span>
+                <span className="font-body text-sm text-foreground/70">Game Developer — Unity / Unreal</span>
               </div>
               <div className="flex items-center gap-3">
                 <span className="font-display text-sm text-accent">02.</span>
-                <span className="font-body text-sm text-foreground/70">Full-Stack Developer</span>
+                <span className="font-body text-sm text-foreground/70">Full-Stack SaaS Engineer</span>
               </div>
               <div className="flex items-center gap-3">
                 <span className="font-display text-sm text-accent">03.</span>
-                <span className="font-body text-sm text-foreground/70">Game Developer</span>
+                <span className="font-body text-sm text-foreground/70">Systems & Architecture Design</span>
               </div>
+            </motion.div>
+
+            {/* Tech stack badges */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-wrap gap-2 mt-8"
+            >
+              {["Unity", "Unreal", "React", "Node.js", "TypeScript", "C#", "C++", "AWS"].map((tech, i) => (
+                <motion.span
+                  key={tech}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ delay: 0.7 + i * 0.05 }}
+                  className="font-body text-[10px] uppercase tracking-widest text-muted-foreground border border-border px-3 py-1.5 hover:border-accent hover:text-accent transition-colors duration-300"
+                >
+                  {tech}
+                </motion.span>
+              ))}
             </motion.div>
           </div>
         </div>

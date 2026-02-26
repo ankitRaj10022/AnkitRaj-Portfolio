@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download } from "lucide-react";
 
 const navItems = [
-  { label: "works", href: "#projects" },
+  { label: "work", href: "#projects" },
   { label: "skills", href: "#skills" },
   { label: "about", href: "#about" },
   { label: "contact", href: "#contact" },
@@ -35,14 +35,12 @@ const Navbar = () => {
     >
       <div className="w-full px-6 md:px-10 lg:px-16">
         <div className="flex items-center justify-between h-14 md:h-20">
-          <div className="flex items-center gap-4 md:gap-8">
-            <button
-              onClick={() => handleClick("#hero")}
-              className="font-display text-xl md:text-2xl text-foreground hover:text-accent transition-colors uppercase tracking-tight"
-            >
-              ANKIT<span className="text-accent">.</span>
-            </button>
-          </div>
+          <button
+            onClick={() => handleClick("#hero")}
+            className="font-display text-xl md:text-2xl text-foreground hover:text-accent transition-colors uppercase tracking-tight"
+          >
+            ANKIT<span className="text-accent">.</span>
+          </button>
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-6">
@@ -50,9 +48,10 @@ const Navbar = () => {
               <button
                 key={item.href}
                 onClick={() => handleClick(item.href)}
-                className="font-body text-xs uppercase tracking-[0.15em] text-foreground/70 hover:text-accent transition-colors duration-300 px-1"
+                className="font-body text-xs uppercase tracking-[0.15em] text-foreground/70 hover:text-accent transition-colors duration-300 px-1 relative group"
               >
                 {item.label}
+                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-accent group-hover:w-full transition-all duration-300" />
               </button>
             ))}
             <a
