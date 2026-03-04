@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
+import project4 from "@/assets/project-4.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,7 +39,7 @@ const projects = [
     title: "METRICFLOW",
     category: "SaaS",
     tags: "Analytics, Dashboard",
-    image: project1,
+    image: project4,
     year: "2024",
     type: "🚀 SAAS",
   },
