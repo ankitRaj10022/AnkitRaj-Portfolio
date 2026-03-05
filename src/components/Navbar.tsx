@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, X, Download, Moon, Sun } from "lucide-react";
 
 const navItems = [
   { label: "WORK", href: "#projects" },
@@ -12,12 +12,17 @@ const navItems = [
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", dark);
+  }, [dark]);
 
   const handleClick = (href: string) => {
     setMobileOpen(false);
@@ -30,7 +35,7 @@ const Navbar = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.3 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-secondary/95 backdrop-blur-sm" : "bg-transparent"
+        scrolled ? "bg-secondary/95 backdrop-blur-sm dark:bg-card/95" : "bg-transparent"
       }`}
     >
       <div className="w-full px-4 md:px-8 lg:px-12">
@@ -43,7 +48,7 @@ const Navbar = () => {
             ANKIT<span className="text-primary">!</span>
           </button>
 
-          {/* Desktop nav - comic panel style */}
+          {/* Desktop nav */}
           <div className="hidden md:flex items-center">
             <div className="flex items-center gap-1 bg-card border-3 border-foreground px-2 py-1"
               style={{ border: '3px solid hsl(var(--foreground))' }}
@@ -58,10 +63,46 @@ const Navbar = () => {
                 </button>
               ))}
             </div>
+
+            {/* Dark mode toggle */}
+            <motion.button
+              onClick={() => setDark(!dark)}
+              className="ml-3 w-10 h-10 border-2 border-foreground bg-card flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-200 text-foreground"
+              style={{ boxShadow: '2px 2px 0px hsl(var(--foreground))' }}
+              whileTap={{ scale: 0.85, rotate: 20 }}
+              whileHover={{ rotate: -10 }}
+              aria-label="Toggle dark mode"
+              data-cursor="Theme"
+            >
+              <AnimatePresence mode="wait">
+                {dark ? (
+                  <motion.div
+                    key="sun"
+                    initial={{ scale: 0, rotate: -90 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    exit={{ scale: 0, rotate: 90 }}
+                    transition={{ duration: 0.2, type: "spring" }}
+                  >
+                    <Sun size={18} />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="moon"
+                    initial={{ scale: 0, rotate: 90 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    exit={{ scale: 0, rotate: -90 }}
+                    transition={{ duration: 0.2, type: "spring" }}
+                  >
+                    <Moon size={18} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+
             <a
               href="/resume.pdf"
               download
-              className="ml-4 inline-flex items-center gap-2 font-display text-sm text-primary-foreground bg-primary px-5 py-2 comic-btn"
+              className="ml-3 inline-flex items-center gap-2 font-display text-sm text-primary-foreground bg-primary px-5 py-2 comic-btn"
               data-cursor="Download"
             >
               <Download size={14} />
@@ -69,13 +110,23 @@ const Navbar = () => {
             </a>
           </div>
 
-          {/* Mobile toggle */}
-          <button
-            className="md:hidden text-foreground p-2 border-2 border-foreground bg-card"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          {/* Mobile controls */}
+          <div className="flex md:hidden items-center gap-2">
+            <motion.button
+              onClick={() => setDark(!dark)}
+              className="text-foreground p-2 border-2 border-foreground bg-card"
+              whileTap={{ scale: 0.85, rotate: 20 }}
+              aria-label="Toggle dark mode"
+            >
+              {dark ? <Sun size={18} /> : <Moon size={18} />}
+            </motion.button>
+            <button
+              className="text-foreground p-2 border-2 border-foreground bg-card"
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
       </div>
 

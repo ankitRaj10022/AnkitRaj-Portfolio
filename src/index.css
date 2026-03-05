@@ -49,6 +49,45 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
+  .dark {
+    --background: 240 10% 8%;
+    --foreground: 0 0% 92%;
+
+    --card: 240 8% 14%;
+    --card-foreground: 0 0% 92%;
+
+    --popover: 240 8% 14%;
+    --popover-foreground: 0 0% 92%;
+
+    --primary: 348 100% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 270 60% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 240 8% 20%;
+    --muted-foreground: 240 5% 60%;
+
+    --accent: 180 100% 45%;
+    --accent-foreground: 0 0% 8%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 85%;
+    --input: 0 0% 85%;
+    --ring: 348 100% 60%;
+
+    --sidebar-background: 240 10% 8%;
+    --sidebar-foreground: 0 0% 92%;
+    --sidebar-primary: 0 0% 92%;
+    --sidebar-primary-foreground: 240 10% 8%;
+    --sidebar-accent: 240 8% 18%;
+    --sidebar-accent-foreground: 0 0% 92%;
+    --sidebar-border: 240 8% 20%;
+    --sidebar-ring: 348 100% 60%;
+  }
 }
 
 @layer base {
@@ -59,6 +98,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
 
   html {
@@ -93,7 +133,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle, hsl(0 0% 0% / 0.12) 1px, transparent 1px);
+    background-image: radial-gradient(circle, hsl(var(--foreground) / 0.12) 1px, transparent 1px);
     background-size: 6px 6px;
     pointer-events: none;
     z-index: 1;
@@ -101,7 +141,7 @@
 
   /* Dense halftone */
   .halftone-dense::before {
-    background-image: radial-gradient(circle, hsl(0 0% 0% / 0.15) 1.2px, transparent 1.2px);
+    background-image: radial-gradient(circle, hsl(var(--foreground) / 0.15) 1.2px, transparent 1.2px);
     background-size: 4px 4px;
   }
 
@@ -111,6 +151,11 @@
     background: hsl(var(--card));
     position: relative;
     box-shadow: 8px 8px 0px hsl(var(--foreground));
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .dark .comic-panel {
+    box-shadow: 8px 8px 0px hsl(var(--primary) / 0.3), 0 0 20px hsl(var(--primary) / 0.08);
   }
 
   .comic-panel-accent {
@@ -120,6 +165,10 @@
     box-shadow: 8px 8px 0px hsl(var(--foreground));
   }
 
+  .dark .comic-panel-accent {
+    box-shadow: 8px 8px 0px hsl(var(--primary) / 0.4);
+  }
+
   /* Speech bubble */
   .speech-bubble {
     position: relative;
@@ -127,6 +176,7 @@
     border: 3px solid hsl(var(--foreground));
     border-radius: 20px;
     padding: 12px 20px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
   }
   .speech-bubble::after {
     content: '';
@@ -164,6 +214,14 @@
        3px  3px 0 hsl(var(--foreground));
   }
 
+  .dark .action-burst {
+    text-shadow:
+      -3px -3px 0 hsl(var(--primary)),
+       3px -3px 0 hsl(var(--primary)),
+      -3px  3px 0 hsl(var(--primary)),
+       3px  3px 0 hsl(var(--primary));
+  }
+
   /* Comic bold outline text */
   .comic-outline {
     -webkit-text-stroke: 2px hsl(var(--foreground));
@@ -173,6 +231,10 @@
   .comic-outline-thick {
     -webkit-text-stroke: 3px hsl(var(--foreground));
     paint-order: stroke fill;
+  }
+
+  .dark .comic-outline-thick {
+    -webkit-text-stroke: 3px hsl(var(--primary) / 0.6);
   }
 
   /* Starburst shape */
@@ -206,13 +268,13 @@
     100% { transform: translateX(-50%); }
   }
 
-  /* Noise overlay - removed for comic style, replaced with halftone */
+  /* Noise overlay */
   .noise-overlay::before {
     content: '';
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background-image: radial-gradient(circle, hsl(0 0% 0% / 0.08) 1px, transparent 1px);
+    background-image: radial-gradient(circle, hsl(var(--foreground) / 0.08) 1px, transparent 1px);
     background-size: 5px 5px;
     pointer-events: none;
     z-index: 9998;
@@ -233,6 +295,13 @@
   .comic-btn:active {
     box-shadow: 0px 0px 0px hsl(var(--foreground));
     transform: translate(4px, 4px);
+  }
+
+  .dark .comic-btn {
+    box-shadow: 4px 4px 0px hsl(var(--primary) / 0.4), 0 0 12px hsl(var(--primary) / 0.1);
+  }
+  .dark .comic-btn:hover {
+    box-shadow: 2px 2px 0px hsl(var(--primary) / 0.4);
   }
 
   /* Decorative shapes */
