@@ -80,6 +80,7 @@ const ProjectsSection = () => {
           animate={isInView ? { scale: 1 } : {}}
           transition={{ type: "spring", stiffness: 200 }}
           className="inline-block bg-primary text-primary-foreground font-display text-sm px-4 py-1 mb-8 border-2 border-foreground -rotate-2"
+          style={{ boxShadow: '3px 3px 0px hsl(var(--foreground))' }}
         >
           ★ FEATURED EPISODES ★
         </motion.div>
@@ -100,9 +101,10 @@ const ProjectsSection = () => {
           {projects.map((project, i) => (
             <motion.div
               key={project.title + i}
-              initial={{ opacity: 0, y: 50, rotate: i % 2 === 0 ? -1 : 1, scale: 0.95 }}
+              initial={{ opacity: 0, y: 60, rotate: i % 2 === 0 ? -2 : 2, scale: 0.9 }}
               animate={isInView ? { opacity: 1, y: 0, rotate: i % 2 === 0 ? -0.5 : 0.5, scale: 1 } : {}}
               transition={{ duration: 0.7, delay: i * 0.12, type: "spring" }}
+              whileHover={{ scale: 1.02, rotate: 0, y: -5 }}
               className="group cursor-pointer"
               data-cursor="View"
             >
@@ -112,25 +114,35 @@ const ProjectsSection = () => {
                   <motion.img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover"
+                    whileHover={{ scale: 1.12 }}
+                    transition={{ duration: 0.5 }}
                     loading="lazy"
                   />
                   {/* Type badge */}
-                  <div className="absolute top-3 left-3 font-display text-xs text-primary-foreground bg-primary px-3 py-1 border-2 border-foreground">
+                  <div className="absolute top-3 left-3 font-display text-xs text-primary-foreground bg-primary px-3 py-1 border-2 border-foreground"
+                    style={{ boxShadow: '2px 2px 0px hsl(var(--foreground))' }}
+                  >
                     {project.type}
                   </div>
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/50 transition-all duration-400 flex items-center justify-center">
-                    <motion.div className="opacity-0 group-hover:opacity-100 transition-opacity duration-400">
-                      <span className="font-display text-2xl md:text-3xl text-card action-burst">
-                        VIEW!
-                      </span>
+                  {/* Year badge */}
+                  <div className="absolute top-3 right-3 font-display text-xs text-foreground bg-secondary px-2 py-1 border-2 border-foreground">
+                    {project.year}
+                  </div>
+                  {/* Hover overlay with action word */}
+                  <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/60 transition-all duration-300 flex items-center justify-center">
+                    <motion.div
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    >
+                      <div className="starburst">
+                        <span className="font-display text-2xl md:text-4xl text-card relative z-10">VIEW!</span>
+                      </div>
                     </motion.div>
                   </div>
                 </div>
 
                 {/* Info */}
-                <div className="flex items-center justify-between p-4 bg-card">
+                <div className="flex items-center justify-between p-4 bg-card border-t-4 border-foreground">
                   <div>
                     <h3 className="font-display text-xl md:text-2xl text-foreground group-hover:text-primary transition-colors">
                       {project.title}
@@ -139,14 +151,13 @@ const ProjectsSection = () => {
                       {project.tags}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-body text-xs text-foreground/60 font-bold">
-                      {project.year}
-                    </span>
-                    <div className="w-8 h-8 border-2 border-foreground bg-card flex items-center justify-center group-hover:bg-primary transition-all duration-200">
-                      <ArrowUpRight className="w-4 h-4 group-hover:text-primary-foreground" />
-                    </div>
-                  </div>
+                  <motion.div
+                    className="w-10 h-10 border-2 border-foreground bg-card flex items-center justify-center group-hover:bg-primary transition-all duration-200"
+                    style={{ boxShadow: '2px 2px 0px hsl(var(--foreground))' }}
+                    whileHover={{ rotate: 45 }}
+                  >
+                    <ArrowUpRight className="w-5 h-5 group-hover:text-primary-foreground" />
+                  </motion.div>
                 </div>
               </div>
             </motion.div>
