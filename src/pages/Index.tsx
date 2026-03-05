@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import SectionReveal from "@/components/SectionReveal";
 import Preloader from "@/components/Preloader";
+import { ComicClickEffects, ComicDecorations } from "@/components/ComicEffects";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -20,6 +21,8 @@ const Index = () => {
   return (
     <main className="min-h-screen bg-background overflow-x-hidden cursor-none md:cursor-none noise-overlay">
       <CustomCursor />
+      <ComicClickEffects />
+      <ComicDecorations />
       <AnimatePresence mode="wait">
         {loading && <Preloader key="preloader" onComplete={handleComplete} />}
       </AnimatePresence>
