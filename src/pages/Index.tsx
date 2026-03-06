@@ -12,6 +12,7 @@ import CustomCursor from "@/components/CustomCursor";
 import SectionReveal from "@/components/SectionReveal";
 import Preloader from "@/components/Preloader";
 import { ComicClickEffects, ComicDecorations } from "@/components/ComicEffects";
+import MotionPosters from "@/components/MotionPosters";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -23,6 +24,7 @@ const Index = () => {
       <CustomCursor />
       <ComicClickEffects />
       <ComicDecorations />
+      <MotionPosters />
       <AnimatePresence mode="wait">
         {loading && <Preloader key="preloader" onComplete={handleComplete} />}
       </AnimatePresence>
