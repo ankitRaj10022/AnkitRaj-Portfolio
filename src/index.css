@@ -313,4 +313,56 @@
   .comic-star {
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
   }
+
+  /* Poster noise texture */
+  .poster-noise {
+    position: relative;
+  }
+  .poster-noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, hsl(var(--foreground) / 0.06) 1px, transparent 1px);
+    background-size: 3px 3px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Poster glitch text effect */
+  .poster-glitch {
+    position: relative;
+  }
+  .poster-glitch::before,
+  .poster-glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+  }
+  .poster-glitch::before {
+    color: hsl(var(--primary));
+    animation: poster-glitch-1 3s infinite;
+    clip-path: inset(0 0 60% 0);
+  }
+  .poster-glitch::after {
+    color: hsl(var(--secondary));
+    animation: poster-glitch-2 3s infinite;
+    clip-path: inset(60% 0 0 0);
+  }
+
+  @keyframes poster-glitch-1 {
+    0%, 90%, 100% { transform: translate(0); }
+    92% { transform: translate(3px, -1px); }
+    94% { transform: translate(-2px, 1px); }
+    96% { transform: translate(1px, 2px); }
+  }
+  @keyframes poster-glitch-2 {
+    0%, 88%, 100% { transform: translate(0); }
+    90% { transform: translate(-3px, 1px); }
+    93% { transform: translate(2px, -2px); }
+    95% { transform: translate(-1px, -1px); }
+  }
 }
