@@ -41,60 +41,89 @@ const HeroSection = () => {
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Speed lines radiating background */}
+      {/* Speed lines */}
       <motion.div className="absolute inset-0" style={{ scale: bgScale }}>
         <SpeedLines />
       </motion.div>
 
-      {/* Animated background shapes */}
+      {/* Dense background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Large pulsing circle */}
+        {/* Large floating shapes */}
         <motion.div
-          className="absolute -top-20 -right-20 w-64 h-64 bg-primary/30 comic-circle"
-          animate={{ scale: [1, 1.15, 1], rotate: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+          className="absolute -top-10 -right-10 w-80 h-80 rounded-full border-[6px] border-primary/30"
+          animate={{ scale: [1, 1.08, 1], rotate: [0, 15, 0] }}
+          transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
         />
-        {/* Bouncing secondary circle */}
         <motion.div
-          className="absolute top-1/4 -left-12 w-32 h-32 bg-secondary/40 comic-circle"
-          animate={{ y: [0, -25, 0], x: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+          className="absolute top-1/3 -left-20 w-48 h-48 bg-primary/20 rounded-full"
+          animate={{ y: [0, -30, 0], x: [0, 15, 0] }}
+          transition={{ repeat: Infinity, duration: 6 }}
         />
-        {/* Spinning square */}
         <motion.div
-          className="absolute bottom-20 right-20 w-20 h-20 bg-primary/40"
-          style={{ border: '3px solid hsl(var(--foreground))' }}
+          className="absolute bottom-10 right-10 w-24 h-24 bg-secondary/30"
+          style={{ border: '4px solid hsl(var(--foreground))' }}
           animate={{ rotate: [0, 360] }}
-          transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
+          transition={{ repeat: Infinity, duration: 12, ease: "linear" }}
         />
-        {/* Multiple floating dots */}
+
+        {/* Scattered icons / badges */}
         {[
-          { top: "30%", left: "15%", size: 8, delay: 0 },
-          { top: "70%", left: "80%", size: 12, delay: 0.5 },
-          { top: "20%", left: "70%", size: 6, delay: 1 },
-          { top: "80%", left: "25%", size: 10, delay: 1.5 },
-          { top: "50%", left: "90%", size: 5, delay: 2 },
-        ].map((dot, i) => (
-          <motion.div
+          { top: "10%", right: "8%", text: "✕", size: "text-2xl", color: "text-primary-foreground/30" },
+          { top: "20%", right: "20%", text: "✕", size: "text-lg", color: "text-primary-foreground/20" },
+          { top: "15%", left: "8%", text: "✦", size: "text-xl", color: "text-secondary/40" },
+          { bottom: "25%", left: "5%", text: "◆", size: "text-sm", color: "text-primary/30" },
+          { top: "65%", right: "5%", text: "★", size: "text-2xl", color: "text-secondary/30" },
+          { bottom: "15%", right: "30%", text: "●", size: "text-xs", color: "text-primary-foreground/20" },
+        ].map((item, i) => (
+          <motion.span
             key={i}
-            className="absolute bg-foreground/20 rounded-full"
-            style={{ top: dot.top, left: dot.left, width: dot.size, height: dot.size }}
-            animate={{ scale: [1, 1.5, 1], opacity: [0.2, 0.5, 0.2] }}
-            transition={{ repeat: Infinity, duration: 2 + i * 0.5, delay: dot.delay }}
-          />
+            className={`absolute font-display ${item.size} ${item.color}`}
+            style={{ top: item.top, bottom: item.bottom, left: item.left, right: item.right }}
+            animate={{ opacity: [0.3, 0.7, 0.3], y: [0, -8, 0] }}
+            transition={{ repeat: Infinity, duration: 2 + i * 0.5, delay: i * 0.3 }}
+          >
+            {item.text}
+          </motion.span>
         ))}
-        {/* Stars */}
+
+        {/* Floating tag stickers */}
         <motion.div
-          className="absolute top-24 right-1/4 w-16 h-16 bg-secondary comic-star"
+          className="absolute top-[12%] right-[12%] bg-secondary text-secondary-foreground font-display text-[10px] px-3 py-1 border-2 border-foreground hidden md:block"
+          style={{ boxShadow: '2px 2px 0 hsl(var(--foreground))' }}
+          animate={{ rotate: [5, -5, 5], y: [0, -8, 0] }}
+          transition={{ repeat: Infinity, duration: 4 }}
+        >
+          GOODLUCK ☺
+        </motion.div>
+        <motion.div
+          className="absolute bottom-[20%] left-[8%] bg-primary text-primary-foreground font-display text-[10px] px-3 py-1 border-2 border-foreground hidden md:block"
+          style={{ boxShadow: '2px 2px 0 hsl(var(--foreground))' }}
+          animate={{ rotate: [-3, 3, -3], y: [0, -6, 0] }}
+          transition={{ repeat: Infinity, duration: 3.5 }}
+        >
+          ★ LUCKY ★
+        </motion.div>
+        <motion.div
+          className="absolute top-[60%] right-[15%] bg-foreground text-card font-display text-[9px] px-2 py-0.5 rounded-full hidden md:block"
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+        >
+          ▸▸▸ PEACE
+        </motion.div>
+
+        {/* Floating stars */}
+        <motion.div
+          className="absolute top-20 right-1/4 w-14 h-14 bg-secondary comic-star"
           animate={{ rotate: [0, 360] }}
           transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
         />
         <motion.div
-          className="absolute bottom-32 left-1/3 w-10 h-10 bg-primary comic-star"
+          className="absolute bottom-28 left-1/3 w-8 h-8 bg-primary comic-star"
           animate={{ rotate: [360, 0], scale: [1, 1.3, 1] }}
           transition={{ rotate: { repeat: Infinity, duration: 12, ease: "linear" }, scale: { repeat: Infinity, duration: 3 } }}
         />
-        {/* Halftone gradient overlay */}
+
+        {/* Bottom gradient */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background/50 to-transparent" />
       </div>
 
@@ -103,14 +132,22 @@ const HeroSection = () => {
         className="relative z-10 w-[92%] max-w-5xl mx-auto"
         style={{ y: contentY, opacity: contentOpacity }}
       >
-        <div className="comic-panel p-6 md:p-12 lg:p-16 relative halftone-bg">
-          {/* Panel corner decorations */}
-          <div className="absolute top-2 left-2 w-4 h-4 bg-primary" />
-          <div className="absolute top-2 right-2 w-4 h-4 bg-primary" />
-          <div className="absolute bottom-2 left-2 w-4 h-4 bg-primary" />
-          <div className="absolute bottom-2 right-2 w-4 h-4 bg-primary" />
+        <div className="comic-panel p-6 md:p-12 lg:p-16 relative halftone-bg stripe-pattern">
+          {/* Corner decorations */}
+          <div className="absolute top-2 left-2 w-5 h-5 bg-primary" />
+          <div className="absolute top-2 right-2 w-5 h-5 bg-secondary" />
+          <div className="absolute bottom-2 left-2 w-5 h-5 bg-secondary" />
+          <div className="absolute bottom-2 right-2 w-5 h-5 bg-primary" />
 
           <div ref={titleRef} className="text-center space-y-4 relative z-10">
+            {/* Top info strip */}
+            <motion.div className="hero-line flex items-center justify-center gap-3 flex-wrap" style={{ opacity: 0 }}>
+              <span className="bg-foreground text-card font-display text-[10px] px-3 py-0.5 rounded-full">ILLUSTRATION</span>
+              <span className="bg-primary text-primary-foreground font-display text-[10px] px-3 py-0.5 border border-foreground">▶ 2024</span>
+              <span className="font-display text-[10px] text-card-foreground/60">✕ ✕ ✕</span>
+              <span className="bg-secondary text-secondary-foreground font-display text-[10px] px-3 py-0.5">GOODLUCK ☺</span>
+            </motion.div>
+
             {/* Badge */}
             <motion.div className="hero-line" style={{ opacity: 0 }}>
               <span className="inline-block bg-primary text-primary-foreground font-display text-sm md:text-base px-5 py-1.5 -rotate-2 border-2 border-foreground"
@@ -120,10 +157,10 @@ const HeroSection = () => {
               </span>
             </motion.div>
 
-            {/* Main title with thick outline */}
+            {/* Main title */}
             <div className="overflow-hidden">
               <h1
-                className="hero-line font-display text-[18vw] md:text-[14vw] lg:text-[11vw] leading-[0.85] text-foreground comic-outline-thick"
+                className="hero-line font-display text-[18vw] md:text-[14vw] lg:text-[11vw] leading-[0.85] text-card-foreground comic-outline-thick"
                 style={{ opacity: 0 }}
               >
                 ANKIT
@@ -131,17 +168,27 @@ const HeroSection = () => {
             </div>
             <div className="overflow-hidden">
               <h1
-                className="hero-line font-display text-[18vw] md:text-[14vw] lg:text-[11vw] leading-[0.85] text-primary comic-outline-thick"
+                className="hero-line font-display text-[18vw] md:text-[14vw] lg:text-[11vw] leading-[0.85] text-primary comic-outline-thick poster-glitch"
+                data-text="RAJ"
                 style={{ opacity: 0 }}
               >
                 RAJ
               </h1>
             </div>
 
+            {/* Subtitle info row */}
+            <motion.div className="hero-line flex items-center justify-center gap-2 flex-wrap" style={{ opacity: 0 }}>
+              <span className="font-display text-[10px] text-card-foreground/50">09.19 SUN</span>
+              <span className="text-primary font-display text-[10px]">→</span>
+              <span className="font-display text-[10px] text-card-foreground/50">09.21 TUE</span>
+              <span className="w-1 h-1 bg-secondary rounded-full" />
+              <span className="font-display text-[10px] text-card-foreground/60 tracking-wider">ANKIT RAJ ILLUSTRATION</span>
+            </motion.div>
+
             {/* Speech bubble subtitle */}
-            <motion.div className="hero-line flex justify-center mt-8" style={{ opacity: 0 }}>
+            <motion.div className="hero-line flex justify-center mt-6" style={{ opacity: 0 }}>
               <div className="speech-bubble max-w-lg">
-                <p className="font-body text-sm md:text-base text-foreground font-bold text-center">
+                <p className="font-body text-sm md:text-base text-card-foreground font-bold text-center">
                   Crafting immersive games & scalable SaaS products that people love to use!
                 </p>
               </div>
@@ -160,10 +207,24 @@ const HeroSection = () => {
               </button>
               <button
                 onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="font-display text-base md:text-lg text-foreground bg-secondary px-10 py-3.5 comic-btn"
+                className="font-display text-base md:text-lg text-secondary-foreground bg-secondary px-10 py-3.5 comic-btn"
               >
                 LET'S TALK!
               </button>
+            </motion.div>
+
+            {/* Bottom icons row */}
+            <motion.div className="hero-line flex items-center justify-center gap-4 mt-4" style={{ opacity: 0 }}>
+              {["✦", "◆", "★", "●", "✕"].map((c, i) => (
+                <motion.span
+                  key={i}
+                  className="text-card-foreground/30 text-sm"
+                  animate={{ opacity: [0.3, 0.8, 0.3] }}
+                  transition={{ repeat: Infinity, duration: 1.5, delay: i * 0.2 }}
+                >
+                  {c}
+                </motion.span>
+              ))}
             </motion.div>
           </div>
         </div>
@@ -189,14 +250,28 @@ const HeroSection = () => {
             <span className="font-display text-2xl md:text-4xl text-foreground relative z-10">SHIP!</span>
           </div>
         </motion.div>
-        {/* Extra burst */}
+
+        {/* Character mascot placeholder */}
         <motion.div
-          className="absolute top-1/2 -right-6 md:-right-20 hidden md:block"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1, rotate: [5, -5, 5] }}
-          transition={{ delay: 1.8, type: "spring", stiffness: 200, rotate: { repeat: Infinity, duration: 2 } }}
+          className="absolute -right-6 md:-right-16 top-1/4 hidden lg:flex flex-col items-center"
+          initial={{ x: 60, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 1.8, type: "spring" }}
         >
-          <span className="action-burst text-xl md:text-2xl">PLAY!</span>
+          <motion.div
+            className="w-16 h-16 bg-foreground rounded-full border-3 border-foreground flex items-center justify-center"
+            animate={{ y: [0, -10, 0], rotate: [0, 5, -5, 0] }}
+            transition={{ repeat: Infinity, duration: 3 }}
+          >
+            <span className="text-2xl">👾</span>
+          </motion.div>
+          <motion.div
+            className="mt-1 bg-secondary text-secondary-foreground font-display text-[8px] px-2 py-0.5 border border-foreground"
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+          >
+            PLAY!
+          </motion.div>
         </motion.div>
       </motion.div>
 
@@ -208,7 +283,7 @@ const HeroSection = () => {
         transition={{ delay: 2 }}
       >
         <motion.span
-          className="font-display text-xs text-foreground/80"
+          className="font-display text-xs text-card-foreground/80"
           animate={{ y: [0, 5, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
         >
