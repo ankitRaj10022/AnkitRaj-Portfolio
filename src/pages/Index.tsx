@@ -2,17 +2,13 @@ import { useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import MarqueeBanner from "@/components/MarqueeBanner";
 import AboutSection from "@/components/AboutSection";
 import SkillsSection from "@/components/SkillsSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-import CustomCursor from "@/components/CustomCursor";
-import SectionReveal from "@/components/SectionReveal";
 import Preloader from "@/components/Preloader";
-import { ComicClickEffects, ComicDecorations } from "@/components/ComicEffects";
-import MotionPosters from "@/components/MotionPosters";
+import MarqueeBanner from "@/components/MarqueeBanner";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -20,37 +16,22 @@ const Index = () => {
   const handleComplete = useCallback(() => setLoading(false), []);
 
   return (
-    <main className="min-h-screen bg-background overflow-x-hidden cursor-none md:cursor-none noise-overlay">
-      <CustomCursor />
-      <ComicClickEffects />
-      <ComicDecorations />
-      <MotionPosters />
+    <main className="min-h-screen bg-background overflow-x-hidden">
       <AnimatePresence mode="wait">
         {loading && <Preloader key="preloader" onComplete={handleComplete} />}
       </AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: loading ? 0 : 1 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
       >
         <Navbar />
         <HeroSection />
-        <MarqueeBanner text="POW! — GAMES — SAAS — CODE — BAM! — " variant="dark" />
-        <SectionReveal>
-          <AboutSection />
-        </SectionReveal>
-        <MarqueeBanner text="UNITY — UNREAL — REACT — NODE — BOOM! — " speed={25} variant="accent" />
-        <SectionReveal delay={0.1}>
-          <SkillsSection />
-        </SectionReveal>
-        <MarqueeBanner text="★ FEATURED WORK ★ EPISODES ★ " speed={18} variant="dark" />
-        <SectionReveal delay={0.1}>
-          <ProjectsSection />
-        </SectionReveal>
-        <MarqueeBanner text="ZAP! — LET'S BUILD — KAPOW! — " speed={15} />
-        <SectionReveal delay={0.1}>
-          <ContactSection />
-        </SectionReveal>
+        <AboutSection />
+        <MarqueeBanner text="Games — SaaS — Design — Development — " />
+        <ProjectsSection />
+        <SkillsSection />
+        <ContactSection />
         <Footer />
       </motion.div>
     </main>

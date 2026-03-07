@@ -4,42 +4,26 @@ interface MarqueeBannerProps {
   text?: string;
   speed?: number;
   className?: string;
-  variant?: "default" | "dark" | "accent";
 }
 
 const MarqueeBanner = ({
-  text = "DESIGN — DEVELOP — CREATE — INNOVATE — ",
-  speed = 20,
+  text = "Design — Develop — Create — Innovate — ",
+  speed = 25,
   className = "",
-  variant = "default",
 }: MarqueeBannerProps) => {
   const repeated = Array(6).fill(text).join("");
 
-  const bgClass = variant === "dark"
-    ? "bg-foreground"
-    : variant === "accent"
-    ? "bg-primary"
-    : "bg-secondary";
-
-  const textClass = variant === "dark"
-    ? "text-card"
-    : variant === "accent"
-    ? "text-primary-foreground"
-    : "text-secondary-foreground";
-
   return (
-    <div className={`overflow-hidden py-4 md:py-6 border-y-4 border-foreground ${bgClass} relative ${className}`}>
-      {/* Stripe overlay */}
-      <div className="absolute inset-0 stripe-pattern opacity-30" />
+    <div className={`overflow-hidden py-6 md:py-8 border-y border-foreground/10 ${className}`}>
       <motion.div
-        className="flex whitespace-nowrap relative z-10"
+        className="flex whitespace-nowrap"
         animate={{ x: ["0%", "-50%"] }}
         transition={{ repeat: Infinity, duration: speed, ease: "linear" }}
       >
-        <span className={`font-display text-3xl md:text-5xl lg:text-7xl ${textClass} px-4`}>
+        <span className="font-display text-4xl md:text-6xl lg:text-8xl text-foreground/10 px-4">
           {repeated}
         </span>
-        <span className={`font-display text-3xl md:text-5xl lg:text-7xl ${textClass} px-4`}>
+        <span className="font-display text-4xl md:text-6xl lg:text-8xl text-foreground/10 px-4">
           {repeated}
         </span>
       </motion.div>
