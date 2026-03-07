@@ -1,68 +1,60 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import heroBg from "@/assets/hero-bg.jpg";
 
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="contact" className="py-32 md:py-48 px-6 md:px-10 lg:px-16 border-t border-foreground/10" ref={ref}>
-      <div className="max-w-6xl mx-auto text-center">
-        <motion.p
-          className="font-body text-sm text-foreground/40 uppercase tracking-widest mb-8"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          Let's work together
-        </motion.p>
+    <section
+      id="contact"
+      className="relative py-32 md:py-48 px-6 md:px-10 lg:px-16 overflow-hidden"
+    >
+      {/* Background image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={heroBg}
+          alt=""
+          className="w-full h-full object-cover opacity-20"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-background/80" />
+      </div>
 
-        <div className="overflow-hidden">
-          <motion.h2
-            className="font-display text-[16vw] md:text-[12vw] lg:text-[10vw] leading-[0.85] text-foreground"
-            initial={{ y: "100%" }}
-            animate={isInView ? { y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          >
-            Get in touch
-          </motion.h2>
-        </div>
-
+      <div className="relative z-10 max-w-6xl mx-auto" ref={ref}>
         <motion.div
-          className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 0.8 }}
+          className="text-center"
         >
-          {/* Marquee button */}
+          <p className="font-body text-xs uppercase tracking-widest text-muted-foreground mb-6">
+            ✦ Let's work together
+          </p>
+
+          <h2 className="font-display text-6xl md:text-8xl lg:text-[10rem] uppercase tracking-tight text-foreground leading-[0.9] mb-8">
+            Get in
+            <br />
+            <span className="font-serif italic normal-case text-accent">touch</span>
+          </h2>
+
+          <p className="font-body text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-12">
+            I'm always excited to work on new projects and collaborate with amazing people.
+            Drop me a message and let's create something incredible.
+          </p>
+
           <motion.a
-            href="mailto:hello@ankitraj.dev"
-            className="marquee-btn w-64 md:w-80 inline-flex items-center group"
+            href="mailto:hello@portfolio.dev"
+            data-cursor="Email"
+            className="inline-flex items-center gap-3 font-body text-sm md:text-base uppercase tracking-widest text-foreground border border-foreground/30 px-8 py-4 md:px-12 md:py-5 hover:bg-foreground hover:text-background transition-all duration-500 group cursor-none"
             whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
           >
-            <motion.div
-              className="flex whitespace-nowrap"
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
-            >
-              {[0, 1, 2, 3].map((k) => (
-                <span key={k} className="font-body text-sm text-foreground px-4">
-                  Contact me
-                </span>
-              ))}
-            </motion.div>
+            Contact me
+            <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
           </motion.a>
         </motion.div>
-
-        <motion.p
-          className="mt-8 font-body text-sm text-foreground/30"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.7 }}
-        >
-          hello@ankitraj.dev
-        </motion.p>
       </div>
     </section>
   );

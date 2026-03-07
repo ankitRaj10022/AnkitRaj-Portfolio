@@ -15,7 +15,7 @@ export default {
     extend: {
       fontFamily: {
         display: ['Bebas Neue', 'sans-serif'],
-        accent: ['Instrument Serif', 'serif'],
+        serif: ['Playfair Display', 'serif'],
         body: ['Space Grotesk', 'sans-serif'],
       },
       colors: {

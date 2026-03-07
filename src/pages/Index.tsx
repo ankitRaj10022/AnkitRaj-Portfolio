@@ -7,8 +7,9 @@ import SkillsSection from "@/components/SkillsSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import CustomCursor from "@/components/CustomCursor";
+import SectionReveal from "@/components/SectionReveal";
 import Preloader from "@/components/Preloader";
-import MarqueeBanner from "@/components/MarqueeBanner";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -16,7 +17,8 @@ const Index = () => {
   const handleComplete = useCallback(() => setLoading(false), []);
 
   return (
-    <main className="min-h-screen bg-background overflow-x-hidden">
+    <main className="min-h-screen bg-background overflow-x-hidden cursor-none md:cursor-none">
+      <CustomCursor />
       <AnimatePresence mode="wait">
         {loading && <Preloader key="preloader" onComplete={handleComplete} />}
       </AnimatePresence>
@@ -27,11 +29,18 @@ const Index = () => {
       >
         <Navbar />
         <HeroSection />
-        <AboutSection />
-        <MarqueeBanner text="Games — SaaS — Design — Development — " />
-        <ProjectsSection />
-        <SkillsSection />
-        <ContactSection />
+        <SectionReveal>
+          <AboutSection />
+        </SectionReveal>
+        <SectionReveal delay={0.1}>
+          <SkillsSection />
+        </SectionReveal>
+        <SectionReveal delay={0.1}>
+          <ProjectsSection />
+        </SectionReveal>
+        <SectionReveal delay={0.1}>
+          <ContactSection />
+        </SectionReveal>
         <Footer />
       </motion.div>
     </main>

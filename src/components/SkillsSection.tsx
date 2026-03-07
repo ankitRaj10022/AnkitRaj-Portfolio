@@ -1,72 +1,65 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
-const awards = [
-  { award: "Game of the Year Nominee", platform: "Indie Awards", project: "Void Engine" },
-  { award: "Best SaaS Product", platform: "Product Hunt", project: "ShipFast" },
-  { award: "Honorable Mention", platform: "Awwwards", project: "MetricFlow" },
-  { award: "Best Game Design", platform: "Indie Showcase", project: "Neon Drift" },
-  { award: "UX Design Excellence", platform: "CSS Design Awards", project: "ShipFast" },
+const skills = [
+  { category: "Design", items: ["UI/UX Design", "Brand Identity", "Motion Design", "Prototyping", "Design Systems"] },
+  { category: "Development", items: ["React / Next.js", "TypeScript", "Tailwind CSS", "Node.js", "REST & GraphQL"] },
+  { category: "Tools", items: ["Figma", "Adobe Suite", "Git & GitHub", "Framer", "Webflow"] },
 ];
 
 const SkillsSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="skills" className="py-24 md:py-32 px-6 md:px-10 lg:px-16 border-t border-foreground/10" ref={ref}>
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-16">
-          <motion.h2
-            className="font-body text-lg md:text-xl text-foreground/50 uppercase tracking-wider"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-          >
-            I win awards sometimes
-          </motion.h2>
-          <motion.div
-            className="flex items-center gap-3"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.3 }}
-          >
-            <motion.svg
-              className="w-6 h-6 text-foreground"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              animate={{ rotate: [0, 360] }}
-              transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
-            >
-              <path d="M12 0L13.5 8.5L22 7L15 12L22 17L13.5 15.5L12 24L10.5 15.5L2 17L9 12L2 7L10.5 8.5L12 0Z" />
-            </motion.svg>
-            <span className="font-display text-4xl md:text-6xl text-foreground">{awards.length}</span>
-            <div className="flex flex-col">
-              <span className="font-body text-[10px] text-foreground/40 uppercase leading-tight">awards</span>
-              <span className="font-body text-[10px] text-foreground/40 uppercase leading-tight">won</span>
-            </div>
-          </motion.div>
-        </div>
+    <section id="skills" className="py-32 md:py-48 px-6 md:px-10 lg:px-16 relative">
+      <div className="max-w-7xl mx-auto" ref={ref}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="flex items-center gap-4 mb-4"
+        >
+          <span className="font-body text-xs uppercase tracking-widest text-muted-foreground">
+            ✦ Expertise
+          </span>
+        </motion.div>
 
-        {/* Awards table */}
-        <div className="border-t border-foreground/10">
-          {/* Header row */}
-          <div className="grid grid-cols-3 py-4 border-b border-foreground/10">
-            <span className="font-body text-xs text-foreground/30 uppercase tracking-wider">Award</span>
-            <span className="font-body text-xs text-foreground/30 uppercase tracking-wider">Platform</span>
-            <span className="font-body text-xs text-foreground/30 uppercase tracking-wider">Project</span>
-          </div>
-          {awards.map((item, i) => (
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="font-display text-5xl md:text-7xl lg:text-8xl uppercase tracking-tight text-foreground mb-16 md:mb-24"
+        >
+          Skills
+        </motion.h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+          {skills.map((group, gi) => (
             <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -20 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.08 }}
-              className="grid grid-cols-3 py-5 border-b border-foreground/10 group hover:bg-foreground/[0.02] transition-colors cursor-default"
+              key={group.category}
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.2 + gi * 0.15 }}
+              className="border-t border-border pt-6"
             >
-              <span className="font-body text-sm text-foreground">{item.award}</span>
-              <span className="font-body text-sm text-foreground/50">{item.platform}</span>
-              <span className="font-body text-sm text-foreground/50">{item.project}</span>
+              <h3 className="font-display text-2xl md:text-3xl uppercase tracking-tight text-accent mb-6">
+                {group.category}
+              </h3>
+              <ul className="space-y-3">
+                {group.items.map((skill, si) => (
+                  <motion.li
+                    key={skill}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.4 + gi * 0.1 + si * 0.05 }}
+                    className="font-body text-base md:text-lg text-foreground/80 flex items-center gap-3 group"
+                  >
+                    <span className="w-1.5 h-1.5 bg-accent/60 group-hover:bg-accent transition-colors duration-300" />
+                    {skill}
+                  </motion.li>
+                ))}
+              </ul>
             </motion.div>
           ))}
         </div>
